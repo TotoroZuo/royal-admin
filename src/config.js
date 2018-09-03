@@ -4,11 +4,6 @@ const logo = '/logo.png' // 请填写logo绝对地址
 
 const systemName = '通用后台管理系统' // 系统名称
 
-const layout = { // 页面布局方式
-  use: 'default', // 当前选择布局
-  lists: ['default'] // 所有布局列表
-}
-
 const colors = {// 主题颜色
   use: 'light', // 当前使用配色方案
   lists: {
@@ -26,6 +21,5 @@ export default {
   copyRight,
   logo,
   systemName,
-  layout,
   colors
 }

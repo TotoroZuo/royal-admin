@@ -3,7 +3,7 @@ export default {
   namespaced: true,
   state: {
     // 用户信息
-    info: setting.user.info
+    // info: setting.user.info
   },
   mutations: {
     /**
@@ -13,14 +13,14 @@ export default {
      */
     set (state, info) {
       // store 赋值
-      state.info = info
-      // 持久化
-      this.dispatch('d2admin/db/set', {
-        dbName: 'sys',
-        path: 'user.info',
-        value: info,
-        user: true
-      })
+      // state.info = info
+      // // 持久化
+      // this.dispatch('d2admin/db/set', {
+      //   dbName: 'sys',
+      //   path: 'user.info',
+      //   value: info,
+      //   user: true
+      // })
     }
 
   }

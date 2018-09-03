@@ -1,11 +1,11 @@
 // 设置文件
-import setting from '@/setting.js'
+// import setting from '@/setting.js'
 
 export default {
   namespaced: true,
   state: {
     // 用户信息
-    info: setting.user.info
+    // info: setting.user.info
   },
   mutations: {
     /**
@@ -14,15 +14,15 @@ export default {
      * @param {*} info info
      */
     set (state, info) {
-      // store 赋值
-      state.info = info
-      // 持久化
-      this.dispatch('d2admin/db/set', {
-        dbName: 'sys',
-        path: 'user.info',
-        value: info,
-        user: true
-      })
+      // // store 赋值
+      // state.info = info
+      // // 持久化
+      // this.dispatch('d2admin/db/set', {
+      //   dbName: 'sys',
+      //   path: 'user.info',
+      //   value: info,
+      //   user: true
+      // })
     },
     /**
      * @description 从数据库取用户数据
@@ -30,12 +30,12 @@ export default {
      */
     async load (state) {
       // store 赋值
-      state.info = await this.dispatch('d2admin/db/get', {
-        dbName: 'sys',
-        path: 'user.info',
-        defaultValue: setting.user.info,
-        user: true
-      })
+      // state.info = await this.dispatch('d2admin/db/get', {
+      //   dbName: 'sys',
+      //   path: 'user.info',
+      //   defaultValue: setting.user.info,
+      //   user: true
+      // })
     }
   }
 }
