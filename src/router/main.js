@@ -1,6 +1,6 @@
 
 // layout 布局入口,如有需要请手动切换
-import layoutIntrance from '@/layout/default'
+import layoutIntrance from '@/layout/sideInner'
 /**
  * 在主框架内显示
  */
