@@ -39,6 +39,7 @@
                         <span slot="title">系统设置</span>
                     </template>
                     <el-menu-item index="5-0">用户管理</el-menu-item>
+                    <el-menu-item index="5-0">部门管理</el-menu-item>
                     <el-menu-item index="5-1">菜单管理</el-menu-item>
                     <el-menu-item index="5-2">角色管理</el-menu-item>
                     <el-menu-item index="5-4">接口管理</el-menu-item>
@@ -134,7 +135,7 @@ export default {
       menuOpen: false,
       copyRight: setting.copyRight,
       curYear: thisYear,
-      menuWith: '220px'
+      menuWith: '201px'
     }
   },
   methods: {
@@ -147,7 +148,7 @@ export default {
         if (this.menuOpen) {
           this.menuWith = '66px'
         } else {
-          this.menuWith = '220px'
+          this.menuWith = '201px'
         }
       }, 0)
     }
