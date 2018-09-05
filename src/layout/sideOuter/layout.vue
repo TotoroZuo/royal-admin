@@ -33,6 +33,16 @@
                     <i class="el-icon-setting"></i>
                     <span slot="title">导航四</span>
                 </el-menu-item>
+                 <el-submenu index="5">
+                    <template slot="title">
+                        <i class="el-icon-setting"></i>
+                        <span slot="title">系统设置</span>
+                    </template>
+                    <el-menu-item index="5-0">用户管理</el-menu-item>
+                    <el-menu-item index="5-1">菜单管理</el-menu-item>
+                    <el-menu-item index="5-2">角色管理</el-menu-item>
+                    <el-menu-item index="5-4">接口管理</el-menu-item>
+                </el-submenu>
             </el-menu>
         </el-aside>
         <!-- 右侧部分 -->
@@ -77,13 +87,13 @@
                                     <i class="material-icons">help_outline</i>
                                 </a>
                             </el-tooltip>
+                            <avator class="header-avator" color="#b3c0d1"  size="30">
+                                A
+                            </avator>
                             <el-dropdown class="accountDropmenu">
                                 <a  class="header-account">
                                    <span class="accountName">admin</span>
                                 </a>
-                                <!-- <span class="el-dropdown-link">
-                                    下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
-                                </span> -->
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>基本资料</el-dropdown-item>
                                     <el-dropdown-item>修改密码</el-dropdown-item>
@@ -94,7 +104,10 @@
                     </div>
                 </div>
             </el-header>
-            <el-main><router-view/></el-main>
+            <el-main class="layout-main">
+                <root-path/>
+                <router-view/>
+            </el-main>
             <el-footer class="layout-footer" height="40px">
                 © {{curYear}} <a href="https://github.com/TotoroZuo/royal-admin">{{copyRight}}</a>
             </el-footer>
@@ -104,11 +117,17 @@
 
 <script>
 import setting from '@/config.js'
+import avator from '@/components/Avator.vue'
+import rootPath from '@/components/RouterPath.vue'
 const thisYear = new Date().getFullYear()
 export default {
   name: 'mainLayout',
   props: {
     msg: String
+  },
+  components: {
+    avator,
+    rootPath
   },
   data () {
     return {
@@ -136,124 +155,7 @@ export default {
 }
 </script>
 <style lang="stylus" scoped>
-.layout-menu
-    border none
-    height calc(100% - 50px)
-.layout-aside
-    border-right: 1px solid #dcdfe6
-
-.aside-toggle
-    position absolute
-    width: 16px;
-    height: 50px
-    top: 200px;
-    left: 0px;
-    background: #dcdfe6;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-
-.aside-toggle:before,.aside-toggle:after
-    display: block;
-    content: "";
-    position: absolute;
-    left: 0;
-    width: 0;
-    height: 0;
-    border-width: 13px 0 13px 10px;
-    border-style: solid;
-    border-color: transparent transparent transparent #dcdfe6;
-
-.aside-toggle:before {
-    top: -11px;
-}
-.aside-toggle:after {
-    bottom: -11px;
-}
-.aside-toggle>i
-    font-size 16px
-    line-height 50px
-    &:hover
-       color: #409EFF;
-.layout-main-container
-    height 100vh
-.el-menu-vertical-demo:not(.el-menu--collapse) {
-    width: 100%;
-    min-height: 400px;
-  }
-.aside-logo
-    height 50px
-    padding-top 10px
-    box-sizing border-box
-    text-align center
-    border-bottom  1px solid #dcdfe6
-.aside-logo img
-    width  40px
-.right-main-container
-    background-color rgb(240,243,247)
-.layout-header
-    height 60px
-    text-align center
-    background #fff
-    border-bottom  1px solid #dcdfe6
-    position relative
-.layout-footer
-    height 40px
-    text-align center
-    line-height 40px
-    font-size 13px
-.layout-header-content
-    display flex
-.header-content-left,.header-content-right
-    width 500px
-    text-align right
-.header-content-middle
-    flex 1
-    line-height 50px
-    color #909399
-    text-align left
-.header-icons
-    width 40px
-    height 40px
-    margin-top 5px
-    padding 10px
-    box-sizing border-box
-    display inline-block
-    line-height 24px
-    cursor pointer
-    margin-right 20px
-    &:hover
-        color: #409EFF;
-        border-color: #c6e2ff;
-        background-color: #ecf5ff;
-.material-icons
-    color #606266
-    font-size 20px
-.header-account
-    display inline-block
-    vertical-align middle
-.accountDropmenu
-    vertical-align top
-.accountName
-    display inline-block
-    vertical-align middle
-    cursor pointer
-    padding 5px
-    box-sizing border-box
-    margin-top 5px
-    height 40px
-    line-height 30px
-    color #409EFF
-    &:hover
-        color: #409EFF;
-        border-color: #c6e2ff;
-        background-color: #ecf5ff;
-</style>
-<style lang="stylus">
-.notice-nums .el-badge__content.is-fixed
-    top -5px
-    right 5px
-.notice-nums .el-badge__content
-    font-size 9px
+    @import './layout.styl'
 </style>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->

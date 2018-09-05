@@ -13,12 +13,27 @@ const frameIn = [
       {
         path: 'index',
         name: 'index',
-        component: () => import('@/views/main/Home.vue')
+        meta: { title: 'index', name: '主页', icon: 'home', noCache: true },
+        component: () => import('@/pages/main/Home.vue')
       },
       {
         path: 'about',
         name: 'about',
-        component: () => import('@/views/main/About.vue')
+        meta: { title: 'about', name: '关于', icon: 'dashboard', noCache: true },
+        component: () => import('@/pages/main/About.vue')
+      }
+    ]
+  },
+  {
+    path: '/system',
+    redirect: { name: 'users' },
+    component: layoutIntrance,
+    children: [
+      {
+        path: 'users',
+        name: 'users',
+        meta: { title: 'users', name: '用户列表', icon: 'group', noCache: true },
+        component: () => import('@/pages/main/system/users/List.vue')
       }
     ]
   }
@@ -32,7 +47,8 @@ const frameOut = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/login/Login.vue')
+    meta: { title: 'login', name: '登陆', icon: 'home', noCache: true },
+    component: () => import('@/pages/login/Login.vue')
   }
 ]
 
@@ -44,7 +60,8 @@ const errorPage = [
   {
     path: '*',
     name: '404',
-    component: () => import('@/views/error/404.vue')
+    meta: { title: '404', name: '404', icon: 'error', noCache: true },
+    component: () => import('@/pages/error/404.vue')
   }
 ]
 
