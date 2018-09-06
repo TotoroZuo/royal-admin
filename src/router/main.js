@@ -34,6 +34,12 @@ const frameIn = [
         name: 'users',
         meta: { title: 'users', name: '用户列表', icon: 'group', noCache: true },
         component: () => import('@/pages/main/system/users/List.vue')
+      },
+      {
+        path: 'roles',
+        name: 'roles',
+        meta: { title: 'roles', name: '角色管理', icon: 'group', noCache: true },
+        component: () => import('@/pages/main/system/role/List.vue')
       }
     ]
   }

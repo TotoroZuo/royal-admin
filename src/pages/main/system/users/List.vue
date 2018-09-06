@@ -1,5 +1,5 @@
 <template>
-    <div class="user-list-container royal-paper royal-paper-2">
+    <div class="user-list-container">
         <div class="search-container">
             <div class="search-left">
                 <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" class="single-add">添加</el-button>
@@ -139,31 +139,4 @@ export default {
     padding 15px 0
     border: 1px solid #ebeef5;
     border-top none
-</style>
-<style lang="stylus">
-
-.el-select .el-input
-    width: 130px;
-
-.input-with-select .el-input-group__prepend,.input-with-select .el-input-group__append
-    background-color: #fff;
-.input-with-select .el-input-group__append:focus, .input-with-select .el-input-group__append:hover
-    color: #409EFF;
-    border-color: #c6e2ff;
-    background-color: #ecf5ff;
-
-.el-pagination .el-pager li:not(.disabled).active {
-    background-color: #409eff;
-    color: #fff;
-    border-radius 2px;
-}
-.el-pagination__editor.el-input .el-input__inner,.el-pagination .el-select .el-input .el-input__inner
-    border-radius 2px;
-.el-pagination__total
-    margin-left 10px
-    margin-right 5px
-.el-pagination__jump
-    margin-left 10px
-.el-pagination .btn-next .el-icon, .el-pagination .btn-prev .el-icon
-    font-size 14px
 </style>

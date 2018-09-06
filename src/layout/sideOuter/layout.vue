@@ -66,6 +66,19 @@
                         追求简约美感的后台管理系统集成方案
                     </div>
                     <div class="header-content-right">
+                            <avator class="header-avator" color="#b3c0d1"  size="30">
+                                A
+                            </avator>
+                            <el-dropdown class="accountDropmenu">
+                                <a  class="header-account">
+                                   <span class="accountName">admin</span>
+                                </a>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item>基本资料</el-dropdown-item>
+                                    <el-dropdown-item>修改密码</el-dropdown-item>
+                                    <el-dropdown-item divided>退出</el-dropdown-item>
+                                </el-dropdown-menu>
+                            </el-dropdown>
                             <el-tooltip content="消息通知" placement="bottom" effect="light">
                                 <a  class="header-icons">
                                     <el-badge :value="0" class="notice-nums">
@@ -88,26 +101,16 @@
                                     <i class="material-icons">help_outline</i>
                                 </a>
                             </el-tooltip>
-                            <avator class="header-avator" color="#b3c0d1"  size="30">
-                                A
-                            </avator>
-                            <el-dropdown class="accountDropmenu">
-                                <a  class="header-account">
-                                   <span class="accountName">admin</span>
-                                </a>
-                                <el-dropdown-menu slot="dropdown">
-                                    <el-dropdown-item>基本资料</el-dropdown-item>
-                                    <el-dropdown-item>修改密码</el-dropdown-item>
-                                    <el-dropdown-item divided>退出</el-dropdown-item>
-                                </el-dropdown-menu>
-                            </el-dropdown>
+
 
                     </div>
                 </div>
             </el-header>
             <el-main class="layout-main">
                 <root-path/>
-                <router-view/>
+                <div class="royal-paper royal-paper-2  ">
+                    <router-view/>
+                </div>
             </el-main>
             <el-footer class="layout-footer" height="40px">
                 © {{curYear}} <a href="https://github.com/TotoroZuo/royal-admin">{{copyRight}}</a>

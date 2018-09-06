@@ -18,7 +18,7 @@ export default {
       default: '#fff'
     },
     size: {
-      type: [Number],
+      type: [Number, String],
       default: 40
     }
   },
