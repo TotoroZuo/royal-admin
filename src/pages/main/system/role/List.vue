@@ -7,7 +7,14 @@
             </div>
             <div class="role-left-list">
                 <ul class="role-list-box">
-                    <li >
+                    <draggable v-model="roleList">
+                        <transition-group name="drag-list">
+                            <li v-for="element in roleList" :key="element.id" :class="{'role-list-active':element.active}">
+                                {{element.name}}
+                            </li>
+                        </transition-group>
+                    </draggable>
+                    <!-- <li >
                         鼠标悬浮时显示
 
                     </li>
@@ -16,7 +23,7 @@
                     </li>
                     <li>
                         鼠标悬浮时显示
-                    </li>
+                    </li> -->
                 </ul>
             </div>
 
@@ -137,11 +144,32 @@
     </div>
 </template>
 <script>
+import draggable from 'vuedraggable'
 export default {
   name: 'roleList',
+  components: {
+    draggable
+  },
   data () {
     return {
-      roleName: ''
+      roleName: '',
+      roleList: [
+        {
+          id: 1,
+          name: '角色一',
+          active: false
+        },
+        {
+          id: 2,
+          name: '角色二',
+          active: true
+        },
+        {
+          id: 3,
+          name: '角色三',
+          active: false
+        }
+      ]
     }
   }
 
@@ -230,6 +258,9 @@ export default {
 .layui-field-title {
     margin: 30px 0 30px;
     border-width: 1px 0 0;
+}
+.drag-list-move {
+  transition: transform 1s;
 }
 
 </style>

@@ -38,8 +38,19 @@ const frameIn = [
       {
         path: 'roles',
         name: 'roles',
-        meta: { title: 'roles', name: '角色管理', icon: 'group', noCache: true },
+        meta: { title: 'roles', name: '角色管理', icon: 'local_mall', noCache: true },
         component: () => import('@/pages/main/system/role/List.vue')
+      },
+      {
+        path: 'menus',
+        name: 'menus',
+        meta: { title: 'menus', name: '菜单管理', icon: 'queue_music', noCache: true },
+        component: () => import('@/pages/main/system/menu/List.vue')
+      }, {
+        path: 'apis',
+        name: 'apis',
+        meta: { title: 'apis', name: '接口管理', icon: 'developer_board', noCache: true },
+        component: () => import('@/pages/main/system/api/List.vue')
       }
     ]
   }
