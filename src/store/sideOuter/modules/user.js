@@ -1,9 +1,21 @@
+/*
+ * @Author: Long maomao
+ * @Date: 2018-09-10 13:17:32
+ * @LastEditors: Long maomao
+ * @LastEditTime: 2018-09-10 17:00:18
+ * @Email: zlf@zuolongfei.me
+ *
+ * @Description: 用户状态管理
+ *
+ */
 
 export default {
   namespaced: true,
   state: {
     // 用户信息
-    // info: setting.user.info
+    info: {},
+    // 用户token 或者id
+    token: ''
   },
   mutations: {
     /**
@@ -21,7 +33,48 @@ export default {
       //   value: info,
       //   user: true
       // })
+    },
+    /**
+     * [clear description] 退出登陆清除用户信息
+     */
+    clear (state) {
+      state.token = ''
+      state.info = {}
     }
 
+  },
+  actions: {
+    /**
+     * [login description] 退出登陆清除用户信息
+     * @param  {String} username
+     * @param  {String} password
+     * @return {Object} 用户信息
+     */
+
+    login ({ state, commit }, params) {
+      const userInfo = {
+        id: '11',
+        name: 'ceshi',
+        role: 'aa'
+      }
+      commit('set', userInfo)
+      return {
+        code: 200,
+        mess: '',
+        data: {},
+        total: 100,
+        account: ''
+      }
+    },
+    /**
+     *
+     *
+     * @param {*} { state, commit }
+     */
+    logout ({ state, commit }) {
+      // 调用退出登陆接口
+      // 清空本地用户信息
+      commit('clear')
+    }
   }
 }
