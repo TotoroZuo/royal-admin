@@ -2,12 +2,12 @@
  * @Author: Long maomao
  * @Date: 2018-09-10 19:08:45
  * @LastEditors: Long maomao
- * @LastEditTime: 2018-09-10 19:20:18
+ * @LastEditTime: 2018-09-10 19:26:49
  * @Description: 用户模块接口
  * @Email: zlf@zuolongfei.me
  */
 
-import $request from '@libs/http.js' // 导入http请求方法
+import $request from '@/libs/http.js' // 导入http请求方法
 
 /**
  * @description 用户登录接口

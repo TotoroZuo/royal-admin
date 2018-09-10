@@ -4,7 +4,7 @@ import router from './router/'
 import store from './store/default/'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import apis from '@apis/'
+import apis from '@/apis/'
 
 Vue.use(apis) // 安装接口
 

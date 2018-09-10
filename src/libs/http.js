@@ -2,7 +2,7 @@
  * @Author: Long maomao
  * @Date: 2018-09-10 14:17:54
  * @LastEditors: Long maomao
- * @LastEditTime: 2018-09-10 16:39:24
+ * @LastEditTime: 2018-09-10 19:27:18
  * @Email: zlf@zuolongfei.me
  *
  *@Description: 网络请求封装
@@ -11,7 +11,7 @@
 import axios from 'axios'
 import qs from 'qs'
 import jsonp from 'jsonp'
-import store from '@store/sideOuter/'
+import store from '@/store/sideOuter/'
 
 // axios 配置
 axios.defaults.timeout = 5000
