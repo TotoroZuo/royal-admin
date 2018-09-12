@@ -52,19 +52,7 @@ export default {
      */
 
     login ({ state, commit }, params) {
-      const userInfo = {
-        id: '11',
-        name: 'ceshi',
-        role: 'aa'
-      }
-      commit('set', userInfo)
-      return {
-        code: 200,
-        mess: '',
-        data: {},
-        total: 100,
-        account: ''
-      }
+      console.log(this)
     },
     /**
      *

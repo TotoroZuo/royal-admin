@@ -120,8 +120,25 @@ function checkCode (err) {
   return err
 }
 
+/**
+ * [checkToken description] 检测用户token是否存在
+ * @return  {[String]} 返回token值
+ */
+function checkToken () {
+  const token = sessionStorage.getItem('token')
+  if (!token) {
+    window.history.pushState(null, '登陆', '/login')
+  }
+  return token
+}
 const $request = {
   post (url, data) {
+    // 检测token是否存在
+    const token = checkToken()
+    // 统一增加token参数
+    if (token) {
+      data.token = token
+    }
     return axios({
       method: 'post',
       url,
@@ -129,6 +146,12 @@ const $request = {
     }).then(response => response).catch(error => (error))
   },
   postJson (url, data) {
+    // 检测token是否存在
+    const token = checkToken()
+    // 统一增加token参数
+    if (token) {
+      data.token = token
+    }
     return axios({
       method: 'post',
       url,
@@ -138,12 +161,27 @@ const $request = {
       data: data
     }).then(response => response).catch(error => (error))
   },
-  get (url, params) {
+  get (url, data) {
+    // 检测token是否存在
+    const token = checkToken()
+    // 统一增加token参数
+    if (token) {
+      data.token = token
+    }
     return axios({
       method: 'get',
       url,
-      params // get 请求时带的参数
+      data // get 请求时带的参数
     }).then(response => response).catch(error => error)
+  },
+  _Jsonp (url, opts, callback) {
+    // 检测token是否存在
+    const token = checkToken()
+    // 统一增加token参数
+    if (token) {
+      url += (url.indexOf('?') !== -1) ? '&token=' + token : '?token=' + token
+    }
+    return jsonp(url, opts, callback)
   },
   jsonp
   // 使用实例

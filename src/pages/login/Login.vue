@@ -29,7 +29,7 @@
                           class="login-input"
                           v-model="password">
                         </el-input>
-                        <el-button type="primary"  style="width:100%;margin: 10px 0;" :disabled="inputFull">登陆</el-button>
+                        <el-button type="primary"  style="width:100%;margin: 10px 0;" :disabled="inputFull" @click="doLogin">登陆</el-button>
                     </div>
                     <div class="signup-link-box">
                       <el-button type="text" class="signup-link">账号注册</el-button>
@@ -79,6 +79,10 @@ export default {
     changeLoginType (tab, event) {
       console.log(tab)
       this.activeLoginType = tab.name
+    },
+    doLogin () {
+      console.log(this.$store)
+      this.$store.dispatch('user/login', { username: this.username, password: this.password })
     }
   },
   computed: {
