@@ -3,6 +3,18 @@
     <router-view/>
   </div>
 </template>
+<script>
+export default {
+  mounted () {
+    // 解决用户登陆持久化问题
+    const token = sessionStorage.getItem('token')
+    if (!this.$store.state.user.token && token) {
+      this.$store.commit('user/refresh')
+    }
+  }
+}
+</script>
+
 <style lang="stylus">
     @import './styles/normalize.styl'
     @import './styles/common.styl'

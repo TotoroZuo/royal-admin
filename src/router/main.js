@@ -13,13 +13,25 @@ const frameIn = [
       {
         path: 'index',
         name: 'index',
-        meta: { title: 'index', name: '主页', icon: 'home', noCache: true },
+        meta: {
+          title: 'index',
+          name: '主页',
+          icon: 'home',
+          noCache: true,
+          requiresAuth: true
+        },
         component: () => import('@/pages/main/Home.vue')
       },
       {
         path: 'about',
         name: 'about',
-        meta: { title: 'about', name: '关于', icon: 'dashboard', noCache: true },
+        meta: {
+          title: 'about',
+          name: '关于',
+          icon: 'dashboard',
+          noCache: true,
+          requiresAuth: true
+        },
         component: () => import('@/pages/main/About.vue')
       }
     ]
@@ -32,24 +44,48 @@ const frameIn = [
       {
         path: 'users',
         name: 'users',
-        meta: { title: 'users', name: '用户列表', icon: 'group', noCache: true },
+        meta: {
+          title: 'users',
+          name: '用户列表',
+          icon: 'group',
+          noCache: true,
+          requiresAuth: true
+        },
         component: () => import('@/pages/main/system/users/List.vue')
       },
       {
         path: 'roles',
         name: 'roles',
-        meta: { title: 'roles', name: '角色管理', icon: 'local_mall', noCache: true },
+        meta: {
+          title: 'roles',
+          name: '角色管理',
+          icon: 'local_mall',
+          noCache: true,
+          requiresAuth: true
+        },
         component: () => import('@/pages/main/system/role/List.vue')
       },
       {
         path: 'menus',
         name: 'menus',
-        meta: { title: 'menus', name: '菜单管理', icon: 'queue_music', noCache: true },
+        meta: {
+          title: 'menus',
+          name: '菜单管理',
+          icon: 'queue_music',
+          noCache: true,
+          requiresAuth: true
+        },
         component: () => import('@/pages/main/system/menu/List.vue')
       }, {
         path: 'apis',
         name: 'apis',
-        meta: { title: 'apis', name: '接口管理', icon: 'developer_board', noCache: true },
+        meta: {
+          title: 'apis',
+          name: '接口管理',
+          icon: 'developer_board',
+          noCache: true,
+          requiresAuth: true
+        },
         component: () => import('@/pages/main/system/api/List.vue')
       }
     ]
@@ -64,7 +100,13 @@ const frameOut = [
   {
     path: '/login',
     name: 'login',
-    meta: { title: 'login', name: '登陆', icon: 'home', noCache: true },
+    meta: {
+      title: 'login',
+      name: '登陆',
+      icon: 'home',
+      noCache: true,
+      requiresAuth: false
+    },
     component: () => import('@/pages/login/Login.vue')
   }
 ]

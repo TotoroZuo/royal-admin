@@ -39,6 +39,12 @@ export default {
       state.info = {}
       sessionStorage.setItem('token')
       sessionStorage.setItem('userInfo')
+    },
+    refresh (state) {
+      if (!state.token && sessionStorage.getItem('token')) {
+        state.token = sessionStorage.getItem('token')
+        state.info = sessionStorage.getItem('userInfo') ? JSON.parse(sessionStorage.getItem('userInfo')) : null
+      }
     }
 
   }

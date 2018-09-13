@@ -19,25 +19,26 @@ const router = new VueRouter({
  * 路由拦截
  * 权限验证
  */
-// router.beforeEach((to, from, next) => {
-//   // 验证当前路由所有的匹配中是否需要有登陆验证的
-//   if (to.matched.some(r => r.meta.requiresAuth)) {
-//     // 这里暂时将cookie里是否存有token作为验证是否登陆的条件
-//     // 请根据自身业务需要修改
-//     const token = util.cookies.get('token')
-//     if (token && token !== 'undefined') {
-//       next()
-//     } else {
-//       // 没有登陆的时候跳转到登陆界面
-//       next({
-//         name: 'login'
-//       })
-//     }
-//   } else {
-//     // 不需要身份校验 直接通过
-//     next()
-//   }
-// })
+router.beforeEach((to, from, next) => {
+  // 验证当前路由所有的匹配中是否需要有登陆验证的
+
+  if (to.matched.some(r => r.meta.requiresAuth)) {
+    // 这里暂时将sessionStorage里是否存有token作为验证是否登陆的条件
+    // 请根据自身业务需要修改
+    const token = sessionStorage.getItem('token')
+    if (token && token !== 'undefined') {
+      next()
+    } else {
+      // 没有登陆的时候跳转到登陆界面
+      next({
+        name: 'login'
+      })
+    }
+  } else {
+    // 不需要身份校验 直接通过
+    next()
+  }
+})
 
 // router.afterEach(to => {
 //   // 需要的信息
