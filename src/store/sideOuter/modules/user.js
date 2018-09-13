@@ -25,14 +25,11 @@ export default {
      */
     set (state, info) {
       // store 赋值
-      // state.info = info
-      // // 持久化
-      // this.dispatch('d2admin/db/set', {
-      //   dbName: 'sys',
-      //   path: 'user.info',
-      //   value: info,
-      //   user: true
-      // })
+      state.info = info
+      state.token = info.token
+      sessionStorage.setItem('token', info.token)
+      sessionStorage.setItem('userInfo', JSON.stringify(info))
+      console.log(state.info)
     },
     /**
      * [clear description] 退出登陆清除用户信息
@@ -40,29 +37,9 @@ export default {
     clear (state) {
       state.token = ''
       state.info = {}
+      sessionStorage.setItem('token')
+      sessionStorage.setItem('userInfo')
     }
 
-  },
-  actions: {
-    /**
-     * [login description] 退出登陆清除用户信息
-     * @param  {String} username
-     * @param  {String} password
-     * @return {Object} 用户信息
-     */
-
-    login ({ state, commit }, params) {
-      console.log(this)
-    },
-    /**
-     *
-     *
-     * @param {*} { state, commit }
-     */
-    logout ({ state, commit }) {
-      // 调用退出登陆接口
-      // 清空本地用户信息
-      commit('clear')
-    }
   }
 }

@@ -74,6 +74,7 @@ export default {
       this.showSlogan = true
       this.showPaper = true
     }, 100)
+    console.log(this.$store.state.user)
   },
   methods: {
     changeLoginType (tab, event) {
@@ -81,8 +82,11 @@ export default {
       this.activeLoginType = tab.name
     },
     doLogin () {
-      console.log(this.$store)
-      this.$store.dispatch('user/login', { username: this.username, password: this.password })
+      const params = { userName: this.username, password: this.password }
+      this.$apis.user.doLogin(params).then((res) => {
+        this.$store.commit('user/set', res.data)
+      })
+    //   this.$store.commit('user/set',userInfo)
     }
   },
   computed: {

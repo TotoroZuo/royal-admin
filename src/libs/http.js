@@ -17,6 +17,7 @@ import store from '@/store/sideOuter/'
 axios.defaults.timeout = 5000
 axios.defaults.withCredentials = true
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
+// axios.defaults.baseURL = process.env.NODE_ENV === 'production' ? '/' : 'http://yapi.demo.qunar.com/mock/18784'
 
 /**
  * [description] 请求拦截器
@@ -131,13 +132,17 @@ function checkToken () {
   }
   return token
 }
+// 要排除不带token的url
+const excludeUrls = ['/user/doLogin']
 const $request = {
   post (url, data) {
-    // 检测token是否存在
-    const token = checkToken()
-    // 统一增加token参数
-    if (token) {
-      data.token = token
+    if (excludeUrls.indexOf(url) === -1) {
+      // 检测token是否存在
+      const token = checkToken()
+      // 统一增加token参数
+      if (token) {
+        data.token = token
+      }
     }
     return axios({
       method: 'post',
@@ -146,11 +151,13 @@ const $request = {
     }).then(response => response).catch(error => (error))
   },
   postJson (url, data) {
-    // 检测token是否存在
-    const token = checkToken()
-    // 统一增加token参数
-    if (token) {
-      data.token = token
+    if (excludeUrls.indexOf(url) === -1) {
+      // 检测token是否存在
+      const token = checkToken()
+      // 统一增加token参数
+      if (token) {
+        data.token = token
+      }
     }
     return axios({
       method: 'post',
@@ -162,11 +169,13 @@ const $request = {
     }).then(response => response).catch(error => (error))
   },
   get (url, data) {
-    // 检测token是否存在
-    const token = checkToken()
-    // 统一增加token参数
-    if (token) {
-      data.token = token
+    if (excludeUrls.indexOf(url) === -1) {
+      // 检测token是否存在
+      const token = checkToken()
+      // 统一增加token参数
+      if (token) {
+        data.token = token
+      }
     }
     return axios({
       method: 'get',
@@ -175,11 +184,13 @@ const $request = {
     }).then(response => response).catch(error => error)
   },
   _Jsonp (url, opts, callback) {
-    // 检测token是否存在
-    const token = checkToken()
-    // 统一增加token参数
-    if (token) {
-      url += (url.indexOf('?') !== -1) ? '&token=' + token : '?token=' + token
+    if (excludeUrls.indexOf(url) === -1) {
+      // 检测token是否存在
+      const token = checkToken()
+      // 统一增加token参数
+      if (token) {
+        url += (url.indexOf('?') !== -1) ? '&token=' + token : '?token=' + token
+      }
     }
     return jsonp(url, opts, callback)
   },

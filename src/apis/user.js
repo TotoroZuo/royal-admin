@@ -16,9 +16,9 @@ import $request from '@/libs/http.js' // 导入http请求方法
  * @return {Object} 接口返回数据
  */
 const doLogin = options => {
-  const url = '/doLogin'
+  const url = '/user/doLogin'
   const params = {
-    userName: options.userName,
+    account: options.userName,
     password: options.password
   }
   return $request.post(url, params)
