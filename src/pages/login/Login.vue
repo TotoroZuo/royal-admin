@@ -2,7 +2,6 @@
   <div class="login-container">
     <div class="login-main">
       <transition name="slogan">
-  <!-- ... the buttons ... -->
         <div class="login-slogan" v-if="showSlogan">
           <img src="../../assets/slogan.png" alt="less coding , better life" width="100%">
         </div>
@@ -29,7 +28,11 @@
                           class="login-input"
                           v-model="password">
                         </el-input>
-                        <el-button type="primary"  style="width:100%;margin: 10px 0;" :disabled="inputFull" @click="doLogin">登陆</el-button>
+                        <div class="login-msg" v-show="errMsg">
+                           <i class="el-icon-error"></i> {{errMsg}}
+                        </div>
+                        <el-button type="primary"  style="width:100%;" :disabled="inputFull" @click="doLogin">登陆</el-button>
+
                     </div>
                     <div class="signup-link-box">
                       <el-button type="text" class="signup-link">账号注册</el-button>
@@ -66,7 +69,8 @@ export default {
       showPaper: false,
       activeLoginType: 'password', // 登陆方式
       username: '',
-      password: ''
+      password: '',
+      errMsg: ''
     }
   },
   mounted () {
@@ -74,24 +78,36 @@ export default {
       this.showSlogan = true
       this.showPaper = true
     }, 100)
-    console.log(this.$store.state.user)
   },
   methods: {
     changeLoginType (tab, event) {
-      console.log(tab)
       this.activeLoginType = tab.name
     },
     doLogin () {
-      const params = { userName: this.username, password: this.password }
+      this.errMsg = ''
+      const params = {
+        userName: this.username.replace(/\s+/g, ''),
+        password: this.password.replace(/\s+/g, '')
+      }
       this.$apis.user.doLogin(params).then((res) => {
+        if (res.code !== 200) {
+          this.errMsg = res.msg
+        }
         this.$store.commit('user/set', res.data)
+        this.$message({
+          message: '恭喜你，登陆成功',
+          type: 'success',
+          duration: 1000,
+          onClose: () => {
+            this.$router.push({ name: 'index' })
+          }
+        })
       })
-    //   this.$store.commit('user/set',userInfo)
     }
   },
   computed: {
     inputFull () {
-      if (!this.username || !this.password) {
+      if (!this.username.replace(/\s+/g, '') || !this.password.replace(/\s+/g, '')) {
         return true
       } else {
         return false
@@ -102,13 +118,4 @@ export default {
 </script>
 <style lang="stylus" scoped>
   @import './login.styl'
-</style>
-<style lang="stylus">
-.el-input__inner
-  border-radius 2px
-  &::placeholder
-    font-weight 200
-    font-size 13px
-.el-button
-  border-radius 2px
 </style>

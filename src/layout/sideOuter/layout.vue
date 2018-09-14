@@ -6,7 +6,7 @@
                 <img src="../../assets/totoro-logo.png"  alt="胖龙猫">
             </div>
             <!-- 菜单 -->
-            <el-menu default-active="1-4-1" class="layout-menu" :collapse="menuOpen">
+            <el-menu :default-active="active" class="layout-menu" :collapse="menuOpen">
 
                 <el-submenu index="1">
                     <template slot="title">
@@ -76,7 +76,7 @@
                                 <el-dropdown-menu slot="dropdown">
                                     <el-dropdown-item>基本资料</el-dropdown-item>
                                     <el-dropdown-item>修改密码</el-dropdown-item>
-                                    <el-dropdown-item divided>退出</el-dropdown-item>
+                                    <el-dropdown-item divided @click.native="doLogout">退出</el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                             <el-tooltip content="消息通知" placement="bottom" effect="light">
@@ -101,7 +101,6 @@
                                     <i class="material-icons">help_outline</i>
                                 </a>
                             </el-tooltip>
-
                     </div>
                 </div>
             </el-header>
@@ -119,9 +118,9 @@
 </template>
 
 <script>
-import setting from '@/config.js'
-import avator from '@/components/Avator.vue'
-import rootPath from '@/components/RouterPath.vue'
+import setting from '@/config.js' // 配置文件
+import avator from '@/components/Avator.vue' // 头像组件
+import rootPath from '@/components/RouterPath.vue' // 当前路径
 const thisYear = new Date().getFullYear()
 export default {
   name: 'mainLayout',
@@ -153,6 +152,22 @@ export default {
           this.menuWith = '201px'
         }
       }, 0)
+    },
+    doLogout () {
+      this.$store.commit('user/clear')
+      this.$router.push({ name: 'login' })
+    },
+    // 获取菜单列表
+    getMenuList () {
+      const param = { token: this.$store.user.token }
+      this.$apis.menu.getList(param).then((res) => {
+        this.$store.commit('menu/setList', res.data)
+      })
+    }
+  },
+  computed: {
+    active: () => {
+      return this.$store.state.menu.active
     }
   }
 }

@@ -1,4 +1,4 @@
-
+$radius = 2px //圆角设置
 // paper相关
 .royal-paper
     -webkit-transition: all .45s cubic-bezier(.23,1,.32,1);
@@ -38,10 +38,10 @@
 .el-pagination .el-pager li:not(.disabled).active {
     background-color: #409eff;
     color: #fff;
-    border-radius 2px;
+    border-radius $radius;
 }
 .el-pagination__editor.el-input .el-input__inner,.el-pagination .el-select .el-input .el-input__inner
-    border-radius 2px;
+    border-radius $radius;
 .el-pagination__total
     margin-left 10px
     margin-right 5px
@@ -52,7 +52,10 @@
 
 // 边框优化圆角优化
 .el-input__inner,.el-button
-    border-radius 2px!important
+    border-radius $radius!important
+.el-input__inner::placeholder
+    font-weight 200
+    font-size 13px
 
 // 复选框优化
 .el-checkbox__inner

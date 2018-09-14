@@ -2,10 +2,10 @@
  * @Author: Long maomao
  * @Date: 2018-09-10 13:17:32
  * @LastEditors: Long maomao
- * @LastEditTime: 2018-09-10 17:00:18
+ * @LastEditTime: 2018-09-14 15:30:55
  * @Email: zlf@zuolongfei.me
  *
- * @Description: 用户状态管理
+ * @Description: 用户状态管理模块
  *
  */
 
@@ -29,7 +29,6 @@ export default {
       state.token = info.token
       sessionStorage.setItem('token', info.token)
       sessionStorage.setItem('userInfo', JSON.stringify(info))
-      console.log(state.info)
     },
     /**
      * [clear description] 退出登陆清除用户信息
@@ -37,9 +36,12 @@ export default {
     clear (state) {
       state.token = ''
       state.info = {}
-      sessionStorage.setItem('token')
-      sessionStorage.setItem('userInfo')
+      sessionStorage.removeItem('token')
+      sessionStorage.removeItem('userInfo')
     },
+    /**
+     * [refresh description] 持久化登陆状态（从本地存储拿取token和userInfo）
+     */
     refresh (state) {
       if (!state.token && sessionStorage.getItem('token')) {
         state.token = sessionStorage.getItem('token')
