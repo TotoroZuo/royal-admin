@@ -13,7 +13,7 @@
                         <i class="el-icon-location"></i>
                         <span slot="title">导航一</span>
                     </template>
-                    <el-menu-item index="1-1">选项1</el-menu-item>
+                    <el-menu-item index="1-1" @click="handleClickMenu('/index')">首页</el-menu-item>
                     <el-menu-item index="1-2">选项2</el-menu-item>
                     <el-menu-item index="1-3">选项3</el-menu-item>
                     <el-submenu index="1-4">
@@ -21,7 +21,7 @@
                         <el-menu-item index="1-4-1">选项1</el-menu-item>
                     </el-submenu>
                 </el-submenu>
-                <el-menu-item index="2">
+                <el-menu-item index="2" @click="handleClickMenu('https://taobao.com')">
                     <i class="el-icon-menu"></i>
                     <span slot="title">导航二</span>
                 </el-menu-item>
@@ -104,10 +104,17 @@
                     </div>
                 </div>
             </el-header>
-            <el-main class="layout-main">
+            <!-- iframe -->
+            <el-main class="layout-main-iframe" v-if="iframeUrl">
+                <div class="royal-paper royal-paper-2 layout-iframe-wrap">
+                    <iframe :src="iframeUrl"  class="layout-iframe" frameborder="0" ></iframe>
+                </div>
+            </el-main>
+            <!-- router -->
+            <el-main class="layout-main" v-else>
                 <root-path/>
-                <div class="royal-paper royal-paper-2  ">
-                    <router-view/>
+                <div class="royal-paper royal-paper-2" >
+                    <router-view ></router-view>
                 </div>
             </el-main>
             <el-footer class="layout-footer" height="40px">
@@ -136,7 +143,8 @@ export default {
       menuOpen: false,
       copyRight: setting.copyRight,
       curYear: thisYear,
-      menuWith: '201px'
+      menuWith: '201px',
+      iframeUrl: ''
     }
   },
   methods: {
@@ -163,10 +171,19 @@ export default {
       this.$apis.menu.getList(param).then((res) => {
         this.$store.commit('menu/setList', res.data)
       })
+    },
+    // 处理点击菜单
+    handleClickMenu (path) {
+      if (path.indexOf('http') !== -1 || path.indexOf('https') !== -1) {
+        this.iframeUrl = path
+      } else {
+        this.iframeUrl = ''
+        this.$router.push({ path })
+      }
     }
   },
   computed: {
-    active: () => {
+    active () {
       return this.$store.state.menu.active
     }
   }

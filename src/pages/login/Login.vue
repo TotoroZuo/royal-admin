@@ -63,14 +63,14 @@ export default {
   name: 'login',
   data () {
     return {
-      copyRight: setting.copyRight,
-      curYear: thisYear,
-      showSlogan: false,
-      showPaper: false,
-      activeLoginType: 'password', // 登陆方式
-      username: '',
-      password: '',
-      errMsg: ''
+      copyRight: setting.copyRight, // 版权
+      curYear: thisYear, // 当年时间
+      showSlogan: false, // slogan是否显示
+      showPaper: false, // 登陆框是否显示
+      activeLoginType: 'password', // 登陆方式：password 账号密码登陆 code 扫码登陆
+      username: '', // 用户名
+      password: '', // 密码
+      errMsg: ''// 错误信息
     }
   },
   mounted () {
@@ -80,32 +80,45 @@ export default {
     }, 100)
   },
   methods: {
+    /**
+    * @description  修改登陆方式
+    */
     changeLoginType (tab, event) {
       this.activeLoginType = tab.name
     },
+    /**
+     * @description 进行登陆
+     */
     doLogin () {
       this.errMsg = ''
       const params = {
         userName: this.username.replace(/\s+/g, ''),
         password: this.password.replace(/\s+/g, '')
       }
+
+      // 发送登陆请求
       this.$apis.user.doLogin(params).then((res) => {
         if (res.code !== 200) {
           this.errMsg = res.msg
         }
+        // 更改 Vuex 用户状态
         this.$store.commit('user/set', res.data)
+        // 成功之后消息提醒
         this.$message({
           message: '恭喜你，登陆成功',
           type: 'success',
           duration: 1000,
           onClose: () => {
-            this.$router.push({ name: 'index' })
+            this.$router.push({ name: 'index' }) // 登陆成功跳转首页
           }
         })
       })
     }
   },
   computed: {
+    /**
+     * @description 账号密码不能为空
+     */
     inputFull () {
       if (!this.username.replace(/\s+/g, '') || !this.password.replace(/\s+/g, '')) {
         return true
