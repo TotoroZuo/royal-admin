@@ -166,7 +166,7 @@ export default {
     }
   },
   computed: {
-    active: () => {
+    active () {
       return this.$store.state.menu.active
     }
   }
