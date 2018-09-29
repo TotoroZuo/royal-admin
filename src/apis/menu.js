@@ -20,7 +20,7 @@ const getList = options => {
   const params = {
     token: options.token
   }
-  return $request.post(url, params)
+  return $request.get(url, params)
 }
 
 /**

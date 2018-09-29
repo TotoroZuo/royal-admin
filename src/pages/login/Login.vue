@@ -18,7 +18,7 @@
                           placeholder="请输入账号"
                           prefix-icon="el-icon-mobile-phone"
                           class="login-input"
-                          v-model="username">
+                          v-model="username" @keyup.native.enter="doLogin">
                         </el-input>
                         <el-input
                           placeholder="请输入密码"
@@ -26,7 +26,7 @@
                           type="password"
                           prefix-icon="el-icon-goods"
                           class="login-input"
-                          v-model="password">
+                          v-model="password" @keyup.native.enter="doLogin">
                         </el-input>
                         <div class="login-msg" v-show="errMsg">
                            <i class="el-icon-error"></i> {{errMsg}}
@@ -70,7 +70,8 @@ export default {
       activeLoginType: 'password', // 登陆方式：password 账号密码登陆 code 扫码登陆
       username: '', // 用户名
       password: '', // 密码
-      errMsg: ''// 错误信息
+      errMsg: '', // 错误信息
+      loginDoing: false // 正在登录中
     }
   },
   mounted () {
@@ -91,28 +92,38 @@ export default {
      */
     doLogin () {
       this.errMsg = ''
+      if (this.loginDoing) {
+        return false
+      }
       const params = {
         userName: this.username.replace(/\s+/g, ''),
         password: this.password.replace(/\s+/g, '')
       }
 
       // 发送登陆请求
-      this.$apis.user.doLogin(params).then((res) => {
-        if (res.code !== 200) {
-          this.errMsg = res.msg
-        }
-        // 更改 Vuex 用户状态
-        this.$store.commit('user/set', res.data)
-        // 成功之后消息提醒
-        this.$message({
-          message: '恭喜你，登陆成功',
-          type: 'success',
-          duration: 1000,
-          onClose: () => {
-            this.$router.push({ name: 'index' }) // 登陆成功跳转首页
+      this.loginDoing = true
+      this.$apis.user.doLogin(params)
+        .then((res) => {
+          if (res.code !== 200) {
+            this.errMsg = res.msg
           }
+          // 更改 Vuex 用户状态
+          this.$store.commit('user/set', res.data)
+          // 成功之后消息提醒
+          this.$message({
+            message: '恭喜你，登陆成功',
+            type: 'success',
+            duration: 1000,
+            onClose: () => {
+              this.loginDoing = false
+              this.$router.push({ name: 'index' }) // 登陆成功跳转首页
+            }
+          })
         })
-      })
+        .catch((error) => {
+          console.log(error)
+          this.loginDoing = true
+        })
     }
   },
   computed: {

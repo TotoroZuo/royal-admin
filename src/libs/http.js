@@ -33,7 +33,7 @@ axios.interceptors.request.use(
 
 axios.interceptors.response.use(
   response => checkStatus(response),
-  error => checkCode(Promise.resolve(error.response))
+  error => checkCode(error.response)
 )
 
 /**
@@ -148,7 +148,7 @@ const $request = {
       method: 'post',
       url,
       data: qs.stringify(data)
-    }).then(response => response).catch(error => (error))
+    }).then(response => response).catch(error => error)
   },
   postJson (url, data) {
     if (excludeUrls.indexOf(url) === -1) {
@@ -166,7 +166,7 @@ const $request = {
         'Content-Type': 'application/json'
       },
       data: data
-    }).then(response => response).catch(error => (error))
+    }).then(response => response).catch(error => error)
   },
   get (url, data) {
     if (excludeUrls.indexOf(url) === -1) {

@@ -31,11 +31,11 @@
             <el-table-column
                 type="selection"
                 align="center"
-                width="55">
+                width="60">
             </el-table-column>
             <el-table-column
                 label="序号"
-                width="60"
+                width="65"
                 align="center">
                 <template slot-scope="props">
                     {{props.$index + 1}}
@@ -81,7 +81,7 @@
                     </el-tooltip>
                 </template>
             </el-table-column>
-            <el-table-column type="expand" width="60" label="详情">
+            <el-table-column type="expand" width="65" label="详情">
                 <template slot-scope="props">
                     <el-form label-position="left" inline class="demo-table-expand">
                         <el-form-item label="接口ID">

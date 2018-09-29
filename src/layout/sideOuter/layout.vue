@@ -7,43 +7,28 @@
             </div>
             <!-- 菜单 -->
             <el-menu :default-active="active" class="layout-menu" :collapse="menuOpen">
+                <template v-for="element in menuList">
+                    <el-menu-item :index="element.id" :key="element.id" @click="handleClickMenu(element.path,element.blank)" v-if="!element.isDirectory">
+                        <i class="material-icons menu-icons" v-if="element.icon">{{element.icon}}</i>
+                        <span slot="title">{{element.name}}</span>
+                    </el-menu-item>
+                    <el-submenu :index="element.id" :key="element.id"  v-if="element.isDirectory">
+                        <template slot="title">
+                            <i class="material-icons menu-icons" v-if="element.icon">{{element.icon}}</i>
+                            <span slot="title">{{element.name}}</span>
+                        </template>
+                        <template v-for="son in element.child">
+                            <el-menu-item :index="son.id" :key="son.id" @click="handleClickMenu(son.path,son.blank)" v-if="!son.isDirectory">{{son.name}}</el-menu-item>
+                            <el-submenu :index="son.id" :key="son.id" v-if="son.isDirectory">
+                                <span slot="title">{{son.name}}</span>
+                                <template v-for="grandson in son.child">
+                                    <el-menu-item :index="grandson.id" :key="grandson.id" @click="handleClickMenu(grandson.path,grandson.blank)">{{grandson.name}}</el-menu-item>
+                                </template>
 
-                <el-submenu index="1">
-                    <template slot="title">
-                        <i class="el-icon-location"></i>
-                        <span slot="title">导航一</span>
-                    </template>
-                    <el-menu-item index="1-1" @click="handleClickMenu('/index')">首页</el-menu-item>
-                    <el-menu-item index="1-2">选项2</el-menu-item>
-                    <el-menu-item index="1-3">选项3</el-menu-item>
-                    <el-submenu index="1-4">
-                        <span slot="title">选项4</span>
-                        <el-menu-item index="1-4-1">选项1</el-menu-item>
+                            </el-submenu>
+                        </template>
                     </el-submenu>
-                </el-submenu>
-                <el-menu-item index="2" @click="handleClickMenu('https://taobao.com')">
-                    <i class="el-icon-menu"></i>
-                    <span slot="title">导航二</span>
-                </el-menu-item>
-                <el-menu-item index="3" disabled>
-                    <i class="el-icon-document"></i>
-                    <span slot="title">导航三</span>
-                </el-menu-item>
-                <el-menu-item index="4">
-                    <i class="el-icon-setting"></i>
-                    <span slot="title">导航四</span>
-                </el-menu-item>
-                 <el-submenu index="5">
-                    <template slot="title">
-                        <i class="el-icon-setting"></i>
-                        <span slot="title">系统设置</span>
-                    </template>
-                    <el-menu-item index="5-0">用户管理</el-menu-item>
-                    <el-menu-item index="5-0">部门管理</el-menu-item>
-                    <el-menu-item index="5-1">菜单管理</el-menu-item>
-                    <el-menu-item index="5-2">角色管理</el-menu-item>
-                    <el-menu-item index="5-4">接口管理</el-menu-item>
-                </el-submenu>
+                </template>
             </el-menu>
         </el-aside>
         <!-- 右侧部分 -->
@@ -147,6 +132,9 @@ export default {
       iframeUrl: ''
     }
   },
+  mounted () {
+    this.getMenuList()
+  },
   methods: {
     toggleOpenMenu () {
       this.menuOpen = !this.menuOpen
@@ -167,13 +155,17 @@ export default {
     },
     // 获取菜单列表
     getMenuList () {
-      const param = { token: this.$store.user.token }
+      const param = { token: this.userToken }
       this.$apis.menu.getList(param).then((res) => {
         this.$store.commit('menu/setList', res.data)
       })
     },
     // 处理点击菜单
-    handleClickMenu (path) {
+    handleClickMenu (path, _blank) {
+      if (_blank) {
+        window.open(path)
+        return false
+      }
       if (path.indexOf('http') !== -1 || path.indexOf('https') !== -1) {
         this.iframeUrl = path
       } else {
@@ -185,6 +177,12 @@ export default {
   computed: {
     active () {
       return this.$store.state.menu.active
+    },
+    userToken () {
+      return this.$store.state.user.token
+    },
+    menuList () {
+      return this.$store.state.menu.menuList
     }
   }
 }
