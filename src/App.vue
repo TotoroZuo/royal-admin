@@ -11,6 +11,8 @@ export default {
     if (!this.$store.state.user.token && token) {
       this.$store.commit('user/refresh')
     }
+    // 获取浏览器信息
+    this.$store.commit('ua/get')
   }
 }
 </script>

@@ -33,6 +33,18 @@ const frameIn = [
           requiresAuth: true
         },
         component: () => import('@/pages/main/About.vue')
+      },
+      {
+        path: '/ua',
+        name: 'ua',
+        component: () => import('@/pages/main/Ua.vue'),
+        meta: {
+          title: '浏览器信息',
+          name: '浏览器代理',
+          icon: 'dashboard',
+          noCache: true,
+          requiresAuth: true
+        }
       }
     ]
   },

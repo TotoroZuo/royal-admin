@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import user from './modules/user' // 用户管理
 import menu from './modules/menu' // 菜单管理
 import setting from './modules/setting' // 设置管理
-
+import ua from './modules/ua' // 浏览器信息
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -12,6 +12,7 @@ export default new Vuex.Store({
   modules: {
     user,
     menu,
-    setting
+    setting,
+    ua
   }
 })
