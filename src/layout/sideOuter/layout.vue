@@ -1,6 +1,7 @@
 <template>
     <el-container class="layout-main-container">
         <el-aside :width="menuWith" class="layout-aside ">
+            <el-scrollbar style="height:100%;">
             <!-- logo -->
             <div class="aside-logo">
                 <img src="../../assets/totoro-logo.png"  alt="胖龙猫">
@@ -30,6 +31,7 @@
                     </el-submenu>
                 </template>
             </el-menu>
+            </el-scrollbar>
         </el-aside>
         <!-- 右侧部分 -->
         <el-container class="right-main-container">
@@ -89,19 +91,25 @@
                     </div>
                 </div>
             </el-header>
+
             <!-- iframe -->
             <el-main class="layout-main-iframe" v-if="iframeUrl">
+                <el-scrollbar style="height:100%;">
                 <div class="royal-paper royal-paper-2 layout-iframe-wrap">
                     <iframe :src="iframeUrl"  class="layout-iframe" frameborder="0" ></iframe>
                 </div>
+                </el-scrollbar>
             </el-main>
             <!-- router -->
             <el-main class="layout-main" v-else>
+                <el-scrollbar style="height:100%;">
                 <root-path/>
                 <div class="royal-paper royal-paper-2" >
                     <router-view ></router-view>
                 </div>
+                 </el-scrollbar>
             </el-main>
+
             <el-footer class="layout-footer" height="40px">
                 © {{curYear}} <a href="https://github.com/TotoroZuo/royal-admin">{{copyRight}}</a>
             </el-footer>

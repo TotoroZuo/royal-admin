@@ -116,9 +116,11 @@
     margin-right 10px
 .layout-main
     padding-top 0
+     overflow: hidden
 .layout-main-iframe
     display: flex
     flex-direction: column
+    overflow: hidden
 .layout-iframe-wrap
     display: flex
     flex: 1
@@ -131,3 +133,7 @@
     font-size: 18px;
     vertical-align: middle
     color: #909399
+.layout-aside >>> .el-scrollbar__wrap
+  overflow-x: hidden
+.layout-aside >>> .el-scrollbar__view
+    padding-bottom: 20px
