@@ -29,7 +29,8 @@ export default {
         height: this.size + 'px',
         fontSize: (this.size / 2) + 'px',
         backgroundColor: this.color,
-        color: this.textColor
+        color: this.textColor,
+        lineHeight: this.size + 'px'
       }
     }
   }
