@@ -6,18 +6,49 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/libs/normalize.css">
   <link rel="stylesheet" href="/icons/material-icons.css">
   <!--[if  IE 9]>
     <link rel="stylesheet" href="/libs/hacker.css">
   <![endif]-->
   <title>royal-admin</title>
   <!-- built files will be auto injected -->
+  <style>
+    #loading-box{
+      width: 100%;
+      height: 100vh;
+      z-index: 999;
+      background-color:#0b4182;
+      background: linear-gradient(0deg, #0b4182 1%, #1e88e5 100%);
+      color: #fff;
+      position: absolute;
+      text-align: center;
+      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+    }
+    .loading-content{
+      position: absolute;
+      top: 40%;
+      left: 45%;
+      transform: translate(-50% -50%);
+    }
+  </style>
 </head>
 
 <body>
   <noscript>
     <strong>We're sorry but royal-admin doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
+  <div id="loading-box">
+      <div style="font-size:14px;z-index: 1000;">
+        <div class="loading-content">
+            <embed src="/icons/loading.svg" width="200" height=200" style="background:none;" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+            <div>
+              加载中 · · ·
+            </div>
+        </div>
+      </div>
+  </div>
   <div id="app"></div>
 <!--[if lte IE 9]>
       <script rel="preload" src="/libs/placeholders.min.js"></script>
