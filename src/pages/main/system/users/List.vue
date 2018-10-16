@@ -2,7 +2,7 @@
     <div class="user-list-container">
         <div class="search-container">
             <div class="search-left">
-                <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" class="single-add">添加</el-button>
+                <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" class="single-add" @click="showAddUser">添加</el-button>
                 <el-button-group>
                     <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline">添加</el-button>
                     <el-button type="primary"  size="medium" icon="el-icon-delete">删除</el-button>
@@ -61,13 +61,21 @@
             :total="400">
             </el-pagination>
         </div>
+        <!-- 用户添加编辑组件 -->
+        <user-dialog :open.sync="openDialog" :type.sync="dialogType" />
     </div>
 </template>
 <script>
+import userDialog from '@/pages/main/system/users/Dialog.vue'
 export default {
-  name: 'users',
+  name: 'usersList',
+  components: {
+    userDialog
+  },
   data () {
     return {
+      openDialog: false,
+      dialogType: 'add',
       select: '',
       input5: '',
       currentPage4: 1,
@@ -112,6 +120,9 @@ export default {
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`)
+    },
+    showAddUser () {
+      this.openDialog = true
     }
   }
 }
