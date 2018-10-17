@@ -22,33 +22,125 @@
         </div>
         <div class="list-wrap">
              <el-table
-                ref="multipleTable"
-                border
-                :data="tableData3"
-                tooltip-effect="dark"
-                style="width: 100%"
-                @selection-change="handleSelectionChange">
-                <el-table-column
+            :data="tableData5"
+            @selection-change="handleSelectionChange"
+            border
+            ref="userList"
+            style="width: 100%">
+
+            <el-table-column
                 type="selection"
                 align="center"
                 width="55">
-                </el-table-column>
-                <el-table-column
-                label="日期"
-                width="120">
-                <template slot-scope="scope">{{ scope.row.date }}</template>
-                </el-table-column>
-                <el-table-column
-                prop="name"
+            </el-table-column>
+            <el-table-column
+                label="序号"
+                width="60"
+                align="center"
+            >
+                <template slot-scope="props">
+                    {{props.$index + 1}}
+                </template>
+            </el-table-column>
+            <el-table-column
                 label="姓名"
-                width="120">
-                </el-table-column>
-                <el-table-column
-                prop="address"
-                label="地址"
-                show-overflow-tooltip>
-                </el-table-column>
-            </el-table>
+                align="center"
+                >
+                <template slot-scope="props">
+                    <el-button type="text" @click="showDetail(props.row)">{{props.row.name}}</el-button>
+                </template>
+            </el-table-column>
+            <el-table-column
+                label="帐号"
+                align="center"
+                prop="account">
+            </el-table-column>
+            <el-table-column
+                label="手机号"
+                align="center"
+                prop="phone">
+            </el-table-column>
+            <el-table-column
+                label="所属部门"
+                align="center"
+                prop="org">
+            </el-table-column>
+            <el-table-column
+                label="角色"
+                prop="role">
+            </el-table-column>
+
+            <el-table-column
+                label="状态"
+                width="60"
+                align="center"
+                >
+                <template slot-scope="props">
+                    <el-tooltip :content="'点击' + (props.row.enable ? '禁用':'启用') +'菜单'" placement="top">
+                        <el-switch
+                            v-model="props.row.enable"
+                            active-color="#13ce66"
+                            inactive-color="#C0CCDA">
+                        </el-switch>
+                    </el-tooltip>
+                </template>
+            </el-table-column>
+            <el-table-column type="expand" width="60" label="详情">
+                <template slot-scope="props">
+                    <el-form label-position="left" inline class="list-table-expand">
+                        <el-form-item label="用户ID">
+                            <span>{{ props.row.uid }}</span>
+                        </el-form-item>
+
+                        <el-form-item label="头像">
+                            <span>
+                              <avator class="header-avator"   size="36">
+                                <img :src="props.row.avator" alt="">
+                              </avator>
+                            </span>
+                        </el-form-item>
+                         <el-form-item label="帐号">
+                            <span>{{ props.row.account }}</span>
+                        </el-form-item>
+                        <el-form-item label="姓名">
+                            <span>{{ props.row.name }}</span>
+                        </el-form-item>
+                        <el-form-item label="手机号">
+                            <span>{{ props.row.phone }}</span>
+                        </el-form-item>
+                        <el-form-item label="身份证号">
+                            <span>{{ props.row.idcard }}</span>
+                        </el-form-item>
+                        <el-form-item label="所属部门">
+                            <span>{{ props.row.org }}</span>
+                        </el-form-item>
+                        <el-form-item label="角色">
+                            <span>{{ props.row.role }}</span>
+                        </el-form-item>
+                        <el-form-item label="状态">
+                            <span>
+                                <el-tag type="success" size="medium" v-if="props.row.enable">已启用</el-tag>
+                                <el-tag type="danger" size="medium" v-else>已禁用</el-tag>
+                            </span>
+                        </el-form-item>
+                        <el-form-item label="超级权限">
+                            <span>
+                                <el-tag type="success" size="medium" v-if="props.row.isSuper">已启用</el-tag>
+                                <el-tag type="danger" size="medium" v-else>已禁用</el-tag>
+                            </span>
+                        </el-form-item>
+                    </el-form>
+                </template>
+            </el-table-column>
+            <el-table-column label="操作" width="120" align="center">
+                 <template slot-scope="props">
+                     <el-button type="text" size="small" title="编辑用户">编辑</el-button>
+                     <el-button type="text" size="small" title="重置密码">重置</el-button>
+                     <el-button type="text" size="small" title="删除用户">删除</el-button>
+                 </template>
+            </el-table-column>
+        </el-table>
+
         </div>
         <div class="pagination-wrap">
             <el-pagination
@@ -66,12 +158,13 @@
     </div>
 </template>
 <script>
-import userDialog from '@/pages/main/system/users/Dialog.vue'
-
+import userDialog from '@/pages/main/system/users/Dialog.vue' // 添加组件
+import avator from '@/components/Avator.vue' // 头像组件
 export default {
   name: 'usersList',
   components: {
-    userDialog
+    userDialog,
+    avator
   },
   data () {
     return {
@@ -81,35 +174,21 @@ export default {
       select: '',
       input5: '',
       currentPage4: 1,
-      tableData3: [{
-        date: '2016-05-03',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-02',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-04',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-01',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-08',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-06',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }, {
-        date: '2016-05-07',
-        name: '王小虎',
-        address: '上海市普陀区金沙江路 1518 弄'
-      }],
+      tableData5: [{
+        uid: 'aaa',
+        num: 1,
+        account: 'sssss',
+        password: 'sssssss',
+        avator: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539796759206&di=7baf05afe2361700ca63506e9c9405c0&imgtype=0&src=http%3A%2F%2Fs6.sinaimg.cn%2Fthumb180%2F51267fc5tdf6b5c96b995',
+        org: '商务部',
+        role: '角色1,角色2,角色3',
+        name: '做龙飞',
+        enable: 1,
+        phone: '15537922825',
+        idcard: '410123199103065223',
+        isSuper: 0
+      }
+      ],
       multipleSelection: []
     }
   },
@@ -151,6 +230,9 @@ export default {
         this.openDialog = false
       }
       this.openDialog = true
+    },
+    showDetail (row) {
+      this.$refs.userList.toggleRowExpansion(row)
     }
   }
 }

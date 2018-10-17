@@ -52,6 +52,7 @@
         </div>
         <div class="list-wrap">
             <el-table
+            ref="menuList"
             :data="tableData5"
             border
             style="width: 100%">
@@ -84,7 +85,7 @@
                 align="center"
                 >
                 <template slot-scope="props">
-                    <el-button type="text">{{props.row.name}}</el-button>
+                    <el-button type="text" @click="showDetail(props.row)">{{props.row.name}}</el-button>
                 </template>
             </el-table-column>
             <el-table-column
@@ -115,7 +116,7 @@
             </el-table-column>
             <el-table-column type="expand" width="60" label="详情">
                 <template slot-scope="props">
-                    <el-form label-position="left" inline class="demo-table-expand">
+                    <el-form label-position="left" inline class="list-table-expand">
                         <el-form-item label="菜单ID">
                             <span>{{ props.row.id }}</span>
                         </el-form-item>
@@ -201,6 +202,9 @@ export default {
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`)
+    },
+    showDetail (row) {
+      this.$refs.menuList.toggleRowExpansion(row)
     }
   }
 }
@@ -243,18 +247,7 @@ export default {
     border: 1px solid #ebeef5;
     border-top: none;
 }
-.demo-table-expand {
-    font-size: 0;
-}
-.demo-table-expand >>> label {
-    width: 90px;
-    color: #99a9bf;
-}
-.demo-table-expand .el-form-item {
-    margin-right: 0;
-    margin-bottom: 0;
-    width: 50%;
-}
+
 .menu-breadcrumb
     display inline-block
     vertical-align top
