@@ -15,13 +15,13 @@
   <!-- built files will be auto injected -->
   <style>
     #loading-box{
+      position: fixed;
       width: 100%;
       height: 100vh;
       z-index: 999;
       background-color:#0b4182;
       background: linear-gradient(0deg, #0b4182 1%, #1e88e5 100%);
       color: #fff;
-      position: absolute;
       text-align: center;
       box-sizing: border-box;
       -webkit-box-sizing: border-box;
@@ -31,6 +31,18 @@
       top: 40%;
       left: 45%;
       transform: translate(-50% -50%);
+      text-align: center;
+    }
+    .loading-shadow-wrap{
+        width: 80px;
+        height: 80px;
+        background: #fff;
+        border-radius: 50%;
+        -webkit-box-shadow: 0 3px 5px -1px rgba(0,0,30,0.2), 0 5px 8px 0 rgba(0,0,30,0.14), 0 1px 14px 0 rgba(0,0,30,0.12);
+        box-shadow: 0 3px 5px -1px rgba(0,0,30,0.2), 0 5px 8px 0 rgba(0,0,30,0.14), 0 1px 14px 0 rgba(0,0,30,0.12);
+    }
+    #app{
+        display: none;
     }
   </style>
 </head>
@@ -40,15 +52,14 @@
     <strong>We're sorry but royal-admin doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
   </noscript>
   <div id="loading-box">
-      <div style="font-size:14px;z-index: 1000;">
-        <div class="loading-content">
-            <embed src="/icons/loading.svg" width="200" height=200" style="background:none;" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
-            <div>
-              加载中 · · ·
+        <div style="font-size:14px;z-index: 1000;">
+            <div class="loading-content">
+                <div class="loading-shadow-wrap">
+                    <embed src="/icons/loding-80.svg" width="80" height=80" style="background:none;" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+                </div>
             </div>
         </div>
-      </div>
-  </div>
+    </div>
   <div id="app"></div>
 <!--[if lte IE 9]>
       <script rel="preload" src="/libs/placeholders.min.js"></script>

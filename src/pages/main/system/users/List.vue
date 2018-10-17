@@ -2,9 +2,9 @@
     <div class="user-list-container">
         <div class="search-container">
             <div class="search-left">
-                <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" class="single-add" @click="showAddUser">添加</el-button>
-                <el-button-group>
-                    <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline">添加</el-button>
+                <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" class="single-add" @click="showAddUser" v-show="!checkedList.length">添加</el-button>
+                <el-button-group v-show="checkedList.length">
+                    <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" @click="showEditorUser">添加</el-button>
                     <el-button type="primary"  size="medium" icon="el-icon-delete">删除</el-button>
                 </el-button-group>
             </div>
@@ -62,11 +62,12 @@
             </el-pagination>
         </div>
         <!-- 用户添加编辑组件 -->
-        <user-dialog :open.sync="openDialog" :type.sync="dialogType" />
+        <user-dialog :open.sync="openDialog"  :type.sync="dialogType" />
     </div>
 </template>
 <script>
 import userDialog from '@/pages/main/system/users/Dialog.vue'
+
 export default {
   name: 'usersList',
   components: {
@@ -76,6 +77,7 @@ export default {
     return {
       openDialog: false,
       dialogType: 'add',
+      checkedList: [],
       select: '',
       input5: '',
       currentPage4: 1,
@@ -113,7 +115,8 @@ export default {
   },
   methods: {
     handleSelectionChange (val) {
-      this.multipleSelection = val
+      console.log(val)
+      this.checkedList = val
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`)
@@ -121,7 +124,32 @@ export default {
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`)
     },
+    showEditorUser () {
+      this.dialogType = 'editor'
+      const userInfo = {
+        uid: 'aaa',
+        account: 'sssss',
+        password: 'sssssss',
+        avator: '',
+        org: 'org1',
+        role: [],
+        name: '做龙飞',
+        enable: true,
+        phone: '',
+        idcard: '',
+        isSuper: false
+      }
+      this.$store.commit('user/setSelect', userInfo)
+      if (this.openDialog) {
+        this.openDialog = false
+      }
+      this.openDialog = true
+    },
     showAddUser () {
+      this.dialogType = 'add'
+      if (this.openDialog) {
+        this.openDialog = false
+      }
       this.openDialog = true
     }
   }

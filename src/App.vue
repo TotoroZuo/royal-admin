@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div>
     <router-view/>
   </div>
 </template>
@@ -15,9 +15,7 @@ export default {
   },
   methods: {
     closeLoading () {
-      setTimeout(() => {
-        document.getElementById('loading-box').style.display = 'none'
-      }, 100)
+      document.getElementById('loading-box').style.display = 'none'
     },
     refreshUserInfo () {
     // 解决用户登陆持久化问题

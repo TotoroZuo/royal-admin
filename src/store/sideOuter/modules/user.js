@@ -15,7 +15,9 @@ export default {
     // 用户信息
     info: {},
     // 用户token 或者id
-    token: ''
+    token: '',
+    // 当前选择用户信息
+    selectInfo: {}
   },
   mutations: {
     /**
@@ -31,11 +33,18 @@ export default {
       sessionStorage.setItem('userInfo', JSON.stringify(info))
     },
     /**
+     * [setSelect description] 设置当前选中人员信息
+     */
+    setSelect (state, info) {
+      state.selectInfo = info
+    },
+    /**
      * [clear description] 退出登陆清除用户信息
      */
     clear (state) {
       state.token = ''
       state.info = {}
+      state.selectInfo = {}
       sessionStorage.removeItem('token')
       sessionStorage.removeItem('userInfo')
     },
