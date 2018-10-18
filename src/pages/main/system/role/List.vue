@@ -3,13 +3,13 @@
         <div class="role-list-left">
             <div class="role-left-title">
                 <span class="role-title-content">角色管理</span>
-                <el-button style="float: right; padding: 3px 0; margin-top:22px;" type="text">操作按钮</el-button>
+                <el-button style="float: right; padding: 3px 0; margin-top:22px;" type="text" @click="showAddRole">创建角色</el-button>
             </div>
             <div class="role-left-list">
                 <ul class="role-list-box">
                     <draggable v-model="roleList">
                         <transition-group name="drag-list">
-                            <li v-for="element in roleList" :key="element.id" :class="{'role-list-active':element.active}">
+                            <li v-for="element in roleList" :key="element.id" @click="doChooseRole(element.id)" :class="{'role-list-active':element.id==chooseRole? true : false}">
                                 {{element.name}}
                             </li>
                         </transition-group>
@@ -46,8 +46,8 @@
                         <el-input v-model="roleName" size="medium" placeholder="请输入角色名称"></el-input>
                     </span>
                     <span class="role-add-head-item">
-                        <el-button class="role-add-btns" type="primary" size="medium ">确认</el-button>
-                        <el-button-group class="role-add-btns">
+                        <el-button class="role-add-btns" type="primary" size="medium " v-show="!chooseRole">确认</el-button>
+                        <el-button-group class="role-add-btns" v-show="chooseRole">
                             <el-button type="primary" size="medium" >修改</el-button>
                             <el-button type="primary" size="medium" >删除</el-button>
                         </el-button-group>
@@ -153,6 +153,7 @@ export default {
   data () {
     return {
       roleName: '',
+      chooseRole: '',
       roleList: [
         {
           id: 1,
@@ -170,6 +171,14 @@ export default {
           active: false
         }
       ]
+    }
+  },
+  methods: {
+    doChooseRole (id) {
+      this.chooseRole = id
+    },
+    showAddRole () {
+      this.chooseRole = ''
     }
   }
 
