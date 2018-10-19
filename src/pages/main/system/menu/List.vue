@@ -3,7 +3,7 @@
         <div class="search-container">
             <div class="search-container-top">
                 <div class="search-left">
-                    <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" class="single-add">添加</el-button>
+                    <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" class="single-add" @click="showAddUser">添加</el-button>
                     <el-button-group>
                         <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline">添加</el-button>
                         <el-button type="primary"  size="medium" icon="el-icon-delete">删除</el-button>
@@ -167,13 +167,21 @@
             :total="400">
             </el-pagination>
         </div>
+        <!-- 用户添加编辑组件 -->
+        <menu-dialog :open.sync="openDialog"  :type.sync="dialogType" />
     </div>
 </template>
 <script>
+import menuDialog from '@/pages/main/system/menu/Dialog.vue' // 添加组件
 export default {
   name: 'menus',
+  components: {
+    menuDialog
+  },
   data () {
     return {
+      openDialog: false,
+      dialogType: 'add',
       select: '',
       input5: '',
       value5: '',
@@ -194,6 +202,34 @@ export default {
     }
   },
   methods: {
+    showEditorUser () {
+      this.dialogType = 'editor'
+      const userInfo = {
+        uid: 'aaa',
+        account: 'sssss',
+        password: 'sssssss',
+        avator: '',
+        org: 'org1',
+        role: [],
+        name: '做龙飞',
+        enable: true,
+        phone: '',
+        idcard: '',
+        isSuper: false
+      }
+      this.$store.commit('user/setSelect', userInfo)
+      if (this.openDialog) {
+        this.openDialog = false
+      }
+      this.openDialog = true
+    },
+    showAddUser () {
+      this.dialogType = 'add'
+      if (this.openDialog) {
+        this.openDialog = false
+      }
+      this.openDialog = true
+    },
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
