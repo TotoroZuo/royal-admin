@@ -9,10 +9,11 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "ua-parser-js": "^0.7.18",
+    "@riophae/vue-treeselect": "0.0.37",
     "axios": "^0.18.0",
     "jsonp": "^0.2.1",
     "qs": "^6.5.2",
+    "ua-parser-js": "^0.7.18",
     "vuedraggable": "^2.16.0"
   },
   "devDependencies": {

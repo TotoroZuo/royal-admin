@@ -1,11 +1,20 @@
+/*
+ * @Description: 菜单列表
+ * @Author: Long maomao
+ * @Date: 2018-10-22 14:48:12
+ * @LastEditors: Long maomao
+ * @LastEditTime: 2018-10-22 16:37:07
+ * @Email: zlf@zuolongfei.me
+ */
+
 <template>
     <div class="user-list-container">
         <div class="search-container">
             <div class="search-container-top">
                 <div class="search-left">
-                    <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" class="single-add" @click="showAddUser">添加</el-button>
-                    <el-button-group>
-                        <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline">添加</el-button>
+                    <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" class="single-add" @click="showAddMenu" v-show="!checkedList.length">添加</el-button>
+                    <el-button-group v-show="checkedList.length">
+                        <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" >添加</el-button>
                         <el-button type="primary"  size="medium" icon="el-icon-delete">删除</el-button>
                     </el-button-group>
                 </div>
@@ -55,6 +64,7 @@
             ref="menuList"
             :data="tableData5"
             border
+            @selection-change="handleSelectionChange"
             style="width: 100%">
 
             <el-table-column
@@ -149,7 +159,7 @@
             </el-table-column>
             <el-table-column label="操作" width="100" align="center">
                  <template slot-scope="props">
-                     <el-button type="text" size="small" >编辑</el-button>
+                     <el-button type="text" size="small"  @click="showEditorMenu">编辑</el-button>
                      <el-button type="text" size="small" >删除</el-button>
                  </template>
             </el-table-column>
@@ -182,6 +192,7 @@ export default {
     return {
       openDialog: false,
       dialogType: 'add',
+      checkedList: [],
       select: '',
       input5: '',
       value5: '',
@@ -202,28 +213,27 @@ export default {
     }
   },
   methods: {
-    showEditorUser () {
+    showEditorMenu () {
       this.dialogType = 'editor'
-      const userInfo = {
-        uid: 'aaa',
-        account: 'sssss',
-        password: 'sssssss',
-        avator: '',
-        org: 'org1',
-        role: [],
-        name: '做龙飞',
+      const Info = {
+        mid: '', // 菜单id
+        parentNode: null, // 父级菜单
+        name: '测试', // 菜单名称
+        path: '', // 访问地址
+        pathDeep: 1, // 菜单层级
+        icon: '', // 菜单图标
+        weight: 0, // 菜单排序
+        openType: '_self', // 打开方式 _self 本页 _blank 新窗口
         enable: true,
-        phone: '',
-        idcard: '',
-        isSuper: false
+        description: '' // 菜单描述
       }
-      this.$store.commit('user/setSelect', userInfo)
+      this.$store.commit('menu/setSelect', Info)
       if (this.openDialog) {
         this.openDialog = false
       }
       this.openDialog = true
     },
-    showAddUser () {
+    showAddMenu () {
       this.dialogType = 'add'
       if (this.openDialog) {
         this.openDialog = false
@@ -231,7 +241,7 @@ export default {
       this.openDialog = true
     },
     handleSelectionChange (val) {
-      this.multipleSelection = val
+      this.checkedList = val
     },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`)

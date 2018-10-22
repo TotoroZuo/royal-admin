@@ -2,7 +2,7 @@
  * @Author: Long maomao
  * @Date: 2018-09-14 12:03:59
  * @LastEditors: Long maomao
- * @LastEditTime: 2018-09-14 12:04:19
+ * @LastEditTime: 2018-10-22 16:14:57
  * @Description: 菜单状态管理模块
  * @Email: zlf@zuolongfei.me
  */
@@ -37,6 +37,12 @@ export default {
      */
     setActive (state, cur) {
       state.active = cur
+    },
+    /**
+     * [setSelect description] 设置当前选中人员信息
+     */
+    setSelect (state, info) {
+      state.selectInfo = info
     }
   }
 }
