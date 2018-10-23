@@ -177,7 +177,7 @@
             :total="400">
             </el-pagination>
         </div>
-        <!-- 用户添加编辑组件 -->
+        <!-- 菜单添加编辑组件 -->
         <menu-dialog :open.sync="openDialog"  :type.sync="dialogType" />
     </div>
 </template>
@@ -227,7 +227,7 @@ export default {
         enable: true,
         description: '' // 菜单描述
       }
-      this.$store.commit('menu/setSelect', Info)
+      this.$store.commit('options/setSelectMenu', Info)
       if (this.openDialog) {
         this.openDialog = false
       }

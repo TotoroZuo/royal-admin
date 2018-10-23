@@ -176,7 +176,7 @@ export default {
      * @description 获取选中菜单详情
      */
     selectInfo () {
-      return this.$store.state.menu.selectInfo
+      return this.$store.state.options.selectMenu
     }
   },
   watch: {

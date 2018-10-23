@@ -99,6 +99,17 @@ const frameIn = [
           requiresAuth: true
         },
         component: () => import('@/pages/main/system/api/List.vue')
+      }, {
+        path: 'notice',
+        name: 'notice',
+        meta: {
+          title: 'notice',
+          name: '通知公告',
+          icon: 'developer_board',
+          noCache: true,
+          requiresAuth: true
+        },
+        component: () => import('@/pages/main/system/notice/List.vue')
       }
     ]
   }

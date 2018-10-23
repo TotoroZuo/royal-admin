@@ -37,12 +37,6 @@ export default {
      */
     setActive (state, cur) {
       state.active = cur
-    },
-    /**
-     * [setSelect description] 设置当前选中人员信息
-     */
-    setSelect (state, info) {
-      state.selectInfo = info
     }
   }
 }

@@ -32,12 +32,7 @@ export default {
       sessionStorage.setItem('token', info.token)
       sessionStorage.setItem('userInfo', JSON.stringify(info))
     },
-    /**
-     * [setSelect description] 设置当前选中人员信息
-     */
-    setSelect (state, info) {
-      state.selectInfo = info
-    },
+
     /**
      * [clear description] 退出登陆清除用户信息
      */

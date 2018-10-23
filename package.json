@@ -14,7 +14,9 @@
     "jsonp": "^0.2.1",
     "qs": "^6.5.2",
     "ua-parser-js": "^0.7.18",
-    "vuedraggable": "^2.16.0"
+    "vue-wangeditor-simple": "^1.5.55",
+    "vuedraggable": "^2.16.0",
+    "wangeditor": "^3.1.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.0.1",

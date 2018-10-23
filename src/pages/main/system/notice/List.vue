@@ -1,12 +1,11 @@
 /*
- * @Description: 后台用户管理
+ * @Description: 通知公告管理
  * @Author: Long maomao
- * @Date: 2018-10-23 11:39:52
+ * @Date: 2018-10-22 16:51:23
  * @LastEditors: Long maomao
- * @LastEditTime: 2018-10-23 11:39:52
+ * @LastEditTime: 2018-10-23 15:15:59
  * @Email: zlf@zuolongfei.me
  */
-
 <template>
     <div class="user-list-container">
         <div class="search-container">
@@ -34,7 +33,7 @@
             :data="tableData5"
             @selection-change="handleSelectionChange"
             border
-            ref="userList"
+            ref="noticeList"
             style="width: 100%">
 
             <el-table-column
@@ -52,99 +51,60 @@
                 </template>
             </el-table-column>
             <el-table-column
-                label="姓名"
+                label="标题"
                 align="center"
                 >
                 <template slot-scope="props">
-                    <el-button type="text" @click="showDetail(props.row)">{{props.row.name}}</el-button>
+                    <el-button type="text" >{{props.row.title}}</el-button>
                 </template>
             </el-table-column>
             <el-table-column
-                label="帐号"
+                label="封面"
                 align="center"
-                prop="account">
+                width="80"
+                >
+                <template slot-scope="props">
+                    <avator class="header-avator"   size="60">
+                            <img :src="props.row.subPic" alt="">
+                    </avator>
+                </template>
             </el-table-column>
             <el-table-column
-                label="手机号"
+                width="100"
+                label="发布人"
                 align="center"
-                prop="phone">
+                prop="author">
             </el-table-column>
             <el-table-column
-                label="所属部门"
+                width="100"
+                label="来源"
                 align="center"
-                prop="org">
+                prop="origin">
             </el-table-column>
             <el-table-column
-                label="角色"
-                prop="role">
+                width="160"
+                label="更新时间"
+                align="center"
+                prop="time">
             </el-table-column>
 
             <el-table-column
                 label="状态"
-                width="60"
+                width="160"
                 align="center"
                 >
                 <template slot-scope="props">
-                    <el-tooltip :content="'点击' + (props.row.enable ? '禁用':'启用') +'菜单'" placement="top">
-                        <el-switch
-                            v-model="props.row.enable"
-                            active-color="#13ce66"
-                            inactive-color="#C0CCDA">
-                        </el-switch>
-                    </el-tooltip>
+                    <el-tag class="table-tag">标签一</el-tag>
+                    <el-tag type="success" class="table-tag">标签二</el-tag>
+                    <!-- <el-tag type="info" class="table-tag">标签三</el-tag> -->
                 </template>
             </el-table-column>
-            <el-table-column type="expand" width="60" label="详情">
-                <template slot-scope="props">
-                    <el-form label-position="left" inline class="list-table-expand">
-                        <el-form-item label="用户ID">
-                            <span>{{ props.row.uid }}</span>
-                        </el-form-item>
-
-                        <el-form-item label="头像">
-                            <span>
-                              <avator class="header-avator"   size="36">
-                                <img :src="props.row.avator" alt="">
-                              </avator>
-                            </span>
-                        </el-form-item>
-                         <el-form-item label="帐号">
-                            <span>{{ props.row.account }}</span>
-                        </el-form-item>
-                        <el-form-item label="姓名">
-                            <span>{{ props.row.name }}</span>
-                        </el-form-item>
-                        <el-form-item label="手机号">
-                            <span>{{ props.row.phone }}</span>
-                        </el-form-item>
-                        <el-form-item label="身份证号">
-                            <span>{{ props.row.idcard }}</span>
-                        </el-form-item>
-                        <el-form-item label="所属部门">
-                            <span>{{ props.row.org }}</span>
-                        </el-form-item>
-                        <el-form-item label="角色">
-                            <span>{{ props.row.role }}</span>
-                        </el-form-item>
-                        <el-form-item label="状态">
-                            <span>
-                                <el-tag type="success" size="medium" v-if="props.row.enable">已启用</el-tag>
-                                <el-tag type="danger" size="medium" v-else>已禁用</el-tag>
-                            </span>
-                        </el-form-item>
-                        <el-form-item label="超级权限">
-                            <span>
-                                <el-tag type="success" size="medium" v-if="props.row.isSuper">已启用</el-tag>
-                                <el-tag type="danger" size="medium" v-else>已禁用</el-tag>
-                            </span>
-                        </el-form-item>
-                    </el-form>
-                </template>
-            </el-table-column>
-            <el-table-column label="操作" width="120" align="center">
+            <el-table-column label="操作" width="200" align="center">
                  <template slot-scope="props">
+                     <el-button type="text" size="small" title="编辑用户">预览</el-button>
+                     <el-button type="text" size="small" title="重置密码">发布</el-button>
+                     <el-button type="text" size="small" title="重置密码">置顶</el-button>
                      <el-button type="text" size="small" title="编辑用户">编辑</el-button>
-                     <el-button type="text" size="small" title="重置密码">重置</el-button>
                      <el-button type="text" size="small" title="删除用户">删除</el-button>
                  </template>
             </el-table-column>
@@ -167,7 +127,7 @@
     </div>
 </template>
 <script>
-import userDialog from '@/pages/main/system/users/Dialog.vue' // 添加组件
+import userDialog from '@/pages/main/system/notice/Dialog.vue' // 添加组件
 import avator from '@/components/Avator.vue' // 头像组件
 export default {
   name: 'usersList',
@@ -184,18 +144,17 @@ export default {
       input5: '',
       currentPage4: 1,
       tableData5: [{
-        uid: 'aaa',
+        nid: 'aaa',
         num: 1,
-        account: 'sssss',
-        password: 'sssssss',
-        avator: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539796759206&di=7baf05afe2361700ca63506e9c9405c0&imgtype=0&src=http%3A%2F%2Fs6.sinaimg.cn%2Fthumb180%2F51267fc5tdf6b5c96b995',
-        org: '商务部',
-        role: '角色1,角色2,角色3',
-        name: '做龙飞',
-        enable: 1,
-        phone: '15537922825',
-        idcard: '410123199103065223',
-        isSuper: 0
+        title: 'sssss',
+        subTitle: 'sssssss',
+        author: '左龙飞',
+        subPic: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1539796759206&di=7baf05afe2361700ca63506e9c9405c0&imgtype=0&src=http%3A%2F%2Fs6.sinaimg.cn%2Fthumb180%2F51267fc5tdf6b5c96b995',
+        time: '2018-10-22 16:51:23',
+        stickTop: false,
+        pv: 1,
+        origin: '国土资源局',
+        status: 1
       }
       ],
       multipleSelection: []
@@ -222,7 +181,7 @@ export default {
         org: 'org1',
         role: [],
         name: '做龙飞',
-        enable: true,
+        status: 1,
         phone: '',
         idcard: '',
         isSuper: false
@@ -269,4 +228,6 @@ export default {
     padding 15px 0
     border: 1px solid #ebeef5;
     border-top none
+.table-tag
+    margin-right 10px;
 </style>
