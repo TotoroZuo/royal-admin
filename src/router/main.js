@@ -110,7 +110,30 @@ const frameIn = [
           requiresAuth: true
         },
         component: () => import('@/pages/main/system/notice/List.vue')
+      }, {
+        path: 'help',
+        name: 'help',
+        meta: {
+          title: 'help',
+          name: '帮助中心',
+          icon: 'developer_board',
+          noCache: true,
+          requiresAuth: true
+        },
+        component: () => import('@/pages/main/system/help/List.vue')
+      }, {
+        path: 'option',
+        name: 'option',
+        meta: {
+          title: 'option',
+          name: '操作日志',
+          icon: 'developer_board',
+          noCache: true,
+          requiresAuth: true
+        },
+        component: () => import('@/pages/main/system/option/List.vue')
       }
+
     ]
   }
 ]

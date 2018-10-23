@@ -14,7 +14,6 @@
     "jsonp": "^0.2.1",
     "qs": "^6.5.2",
     "ua-parser-js": "^0.7.18",
-    "vue-wangeditor-simple": "^1.5.55",
     "vuedraggable": "^2.16.0",
     "wangeditor": "^3.1.1"
   },

@@ -32,12 +32,12 @@ export default {
       if (Object.keys(this.options).length) {
         this.editor.customConfig = { ...this.options }
       }
-      this.editor.customConfig.onchange = this.updateContent()
+      this.editor.customConfig.onchange = (html) => {
+        this.editorContent = html
+        this.$emit('input', html)
+      }
       this.editor.create()
-    },
-    updateContent (html) {
-      this.editorContent = html
-      this.$emit('input', html)
+      this.editor.txt.html(this.value)
     }
   },
   beforeDestroy () {
@@ -45,3 +45,7 @@ export default {
   }
 }
 </script>
+<style lang="stylus" scoped>
+  >>> .w-e-text-container
+        height 200px!important
+</style>
