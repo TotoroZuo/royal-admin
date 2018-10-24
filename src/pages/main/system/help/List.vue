@@ -50,7 +50,7 @@
     </div>
 </template>
 <script>
-import userDialog from '@/pages/main/system/notice/Dialog.vue' // 添加组件
+import userDialog from '@/pages/main/system/help/Dialog.vue' // 添加组件
 
 export default {
   name: 'usersList',

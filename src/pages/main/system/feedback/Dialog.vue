@@ -1,5 +1,5 @@
 /*
- * @Description: 常见问题 添加修改
+ * @Description: 通知公告 添加修改
  * @Author: Long maomao
  * @Date: 2018-10-22 14:47:25
  * @LastEditors: Long maomao
@@ -12,17 +12,62 @@
         <div class="user-dialog-body">
             <el-form ref="apiForm" :model="Info" :rules="apiRules" label-width="85px" label-position='right' size="medium">
 
-                <el-form-item label="问题标题" prop="title" >
+                <el-form-item label="公告标题" prop="title" >
                     <el-input v-model="Info.title" placeholder="请输入标题"></el-input>
                 </el-form-item>
-                <el-form-item label="解决方案" prop="noticeContent">
+                <el-form-item label="公告摘要" prop="subTitle" >
+                    <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 6}" v-model="Info.subTitle" placeholder="请输入摘要"></el-input>
+                </el-form-item>
+                <el-form-item label="设置封面" prop="avator">
+                    <el-upload
+                        class="avatar-uploader"
+                        action="http://118.31.133.238:8883/upload"
+                        name="file"
+                        :data="{type:'photo'}"
+                        :show-file-list="false"
+                        :on-preview="handlePictureCardPreview"
+                        :on-success="handleAvatarSuccess">
+                        <img v-if="Info.avator" :src="Info.subPic" class="avatar">
+                        <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+                    </el-upload>
+                </el-form-item>
+                <el-form-item label="作者名称" prop="author" class="float-label">
+                    <el-input v-model="Info.author" placeholder="请输入作者名称"></el-input>
+                </el-form-item>
+                <el-form-item label="发布时间" prop="time" class="float-label">
+                    <el-date-picker
+                    v-model="Info.time"
+                    type="datetime"
+                    placeholder="选择日期时间"
+                    align="right"
+                    :default-value = "new Date()"
+                    :picker-options="pickerOptions1">
+                    </el-date-picker>
+                </el-form-item>
+                <el-form-item label="公告来源" prop="origin" class="float-label">
+                    <el-input v-model="Info.origin" placeholder="请输入公告来源"></el-input>
+                </el-form-item>
+
+                <el-form-item label="排序权重" prop="weight" class="float-label">
+                    <el-input v-model="Info.weight" placeholder="请输入排序权重"></el-input>
+                </el-form-item>
+
+                <div style="clear:both;"></div>
+                <el-form-item label="公告正文" prop="noticeContent">
                     <div class="dialog-editor-wrap">
                         <vue-editor v-model="Info.noticeContent" :options="editorOptions"></vue-editor>
                     </div>
                 </el-form-item>
+                <el-form-item label="是否置顶" prop="enable">
+                    <el-radio-group v-model="Info.stickTop">
+                        <el-radio :label="true" >开启</el-radio>
+                        <el-radio :label="false">关闭</el-radio>
+                    </el-radio-group>
+                </el-form-item>
 
                 <el-form-item style="margin-bottom:0;">
                     <el-button type="primary" @click="onSubmit">发布</el-button>
+                    <el-button type="info" @click="onSubmit">草稿</el-button>
                     <el-button  @click="restForm">重置</el-button>
                     <el-button  @click="closeDialog">取消</el-button>
                 </el-form-item>
@@ -37,9 +82,16 @@
 import apiRules from './apiRules.js'
 import vueEditor from '@/components/Editor.vue'
 const Info = {
-  hid: 'aaa', // ID
+  nid: 'aaa', // ID
   title: '', // 标题
-  content: '<p>dfadadad</p>' // 正文
+  subTitle: '', // 摘要
+  noticeContent: '<p>dfadadad</p>', // 正文
+  author: '', // 作者
+  subPic: '', // 封面
+  time: new Date(), // 更新时间
+  stickTop: false, // 是否置顶
+  weight: 0, // 排序
+  origin: '' // 来源
 }
 // 默认传入的用户信息
 const defaultInfo = { ...Info }
@@ -47,7 +99,7 @@ const editorOptions = {
   uploadImgServer: '/upload'
 }
 export default {
-  name: 'help-dialog',
+  name: 'apiDialog',
   components: {
     vueEditor
   },
@@ -167,7 +219,7 @@ export default {
      * @description:变化标题
      */
     dialogTitle () {
-      return this.type === 'add' ? '创建常见问题' : '编辑常见问题'
+      return this.type === 'add' ? '创建接口' : '编辑接口'
     },
     /**
      * @description 获取选中菜单详情

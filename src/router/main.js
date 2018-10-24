@@ -132,6 +132,17 @@ const frameIn = [
           requiresAuth: true
         },
         component: () => import('@/pages/main/system/option/List.vue')
+      }, {
+        path: 'feedback',
+        name: 'feedback',
+        meta: {
+          title: 'feedback',
+          name: '问题反馈',
+          icon: 'developer_board',
+          noCache: true,
+          requiresAuth: true
+        },
+        component: () => import('@/pages/main/system/feedback/List.vue')
       }
 
     ]
