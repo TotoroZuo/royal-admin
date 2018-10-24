@@ -11,7 +11,7 @@
         <div class="detail-title-box">
             北京磨刀刻石科技有限公司
         </div>
-        <el-scrollbar class="feed-list-wrap-scrollbar" minContentHeight="200px" >
+        <el-scrollbar  wrap-class="feed-list-wrap-scrollbar" >
             <div class="feed-list-wrap">
                     <div class="feed-item-box">
                         <div class="feed-item-wrap">
@@ -411,8 +411,6 @@ export default {
 .submit-feedback
     text-align right
     padding 15px
-.feed-list-wrap-scrollbar
-    position:relative;
-    width:100%;
-    height 500px;
+>>>.feed-list-wrap-scrollbar
+    max-height 400px;
 </style>
