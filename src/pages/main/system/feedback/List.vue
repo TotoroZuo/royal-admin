@@ -86,7 +86,7 @@
             </el-table-column>
             <el-table-column label="操作" width="200" align="center">
                  <template slot-scope="props">
-                     <el-button type="text" size="small" title="编辑用户">查看 </el-button>
+                     <el-button type="text" size="small" title="编辑用户" @click="showDetail">查看 </el-button>
                      <el-button type="text" size="small" title="重置密码">置顶</el-button>
                      <el-button type="text" size="small" title="编辑用户">编辑</el-button>
                      <el-button type="text" size="small" title="删除用户">删除</el-button>
@@ -108,20 +108,31 @@
         </div>
         <!-- 用户添加编辑组件 -->
         <user-dialog :open.sync="openDialog"  :type.sync="dialogType" />
+        <el-dialog
+        title="提示"
+        :visible.sync="openDetail"
+        fullscreen
+        custom-class='detail-dialog'
+        center>
+        <feed-detail />
+        </el-dialog>
     </div>
 </template>
 <script>
-import userDialog from '@/pages/main/system/notice/Dialog.vue' // 添加组件
+import userDialog from '@/pages/main/system/help/Dialog.vue' // 添加组件
+import feedDetail from '@/pages/main/system/feedback/Detail.vue' // 添加组件
 import avator from '@/components/Avator.vue' // 头像组件
 export default {
   name: 'usersList',
   components: {
     userDialog,
-    avator
+    avator,
+    feedDetail
   },
   data () {
     return {
       openDialog: false,
+      openDetail: false,
       dialogType: 'add',
       checkedList: [],
       select: '',
@@ -183,13 +194,15 @@ export default {
       }
       this.openDialog = true
     },
-    showDetail (row) {
-      this.$refs.userList.toggleRowExpansion(row)
+    showDetail () {
+      this.openDetail = true
     }
   }
 }
 </script>
 <style lang="stylus" scoped>
+>>>.detail-dialog
+    background #f0f3f7
 .user-list-container
     padding 15px
 .search-left

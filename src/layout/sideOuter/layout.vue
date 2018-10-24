@@ -1,7 +1,7 @@
 <template>
     <el-container class="layout-main-container">
         <el-aside :width="menuWith" class="layout-aside ">
-            <el-scrollbar style="height:100%;">
+            <el-scrollbar class="latout-scrollbar" style="height:100%;">
             <!-- logo -->
             <div class="aside-logo">
                 <img src="../../assets/totoro-logo.png"  alt="胖龙猫">
@@ -94,7 +94,7 @@
 
             <!-- iframe -->
             <el-main class="layout-main-iframe" v-if="iframeUrl">
-                <el-scrollbar style="height:100%;">
+                <el-scrollbar class="latout-scrollbar" style="height:100%;">
                 <div class="royal-paper royal-paper-2 layout-iframe-wrap">
                     <iframe :src="iframeUrl"  class="layout-iframe" frameborder="0" ></iframe>
                 </div>
@@ -102,7 +102,7 @@
             </el-main>
             <!-- router -->
             <el-main class="layout-main" v-else>
-                <el-scrollbar style="height:100%;">
+                <el-scrollbar class="latout-scrollbar" style="height:100%;">
                 <root-path/>
                 <div class="royal-paper royal-paper-2" >
                     <router-view ></router-view>
