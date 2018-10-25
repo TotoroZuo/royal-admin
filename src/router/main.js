@@ -143,6 +143,18 @@ const frameIn = [
           requiresAuth: true
         },
         component: () => import('@/pages/main/system/feedback/List.vue')
+      },
+      {
+        path: 'message',
+        name: 'message',
+        meta: {
+          title: 'message',
+          name: '消息中心',
+          icon: 'developer_board',
+          noCache: true,
+          requiresAuth: true
+        },
+        component: () => import('@/pages/main/system/message/List.vue')
       }
 
     ]

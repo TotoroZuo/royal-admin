@@ -10,6 +10,13 @@
 <template>
     <div class="user-list-container">
         <div class="search-container">
+            <div class="search-left">
+                <el-button type="primary"  size="medium"  class="single-add" @click="showAddUser" >全部已读</el-button>
+                <el-button-group v-show="checkedList.length">
+                    <el-button type="primary"  size="medium" icon="el-icon-circle-plus-outline" @click="showEditorUser">标记已读</el-button>
+                    <el-button type="primary"  size="medium" icon="el-icon-delete">删除</el-button>
+                </el-button-group>
+            </div>
             <div class="search-right">
                 <el-input placeholder="请输入内容" v-model="input5" class="input-with-select">
                     <el-button slot="append" icon="el-icon-search"></el-button>
@@ -24,6 +31,12 @@
             border
             ref="userList"
             style="width: 100%">
+
+            <el-table-column
+                type="selection"
+                align="center"
+                width="55">
+            </el-table-column>
             <el-table-column
                 label="序号"
                 width="60"
@@ -34,47 +47,39 @@
                 </template>
             </el-table-column>
             <el-table-column
-                label="操作人员"
+                label="消息内容"
                 align="center"
-                 width="120"
                 >
                 <template slot-scope="props">
-                    <el-button type="text" >{{props.row.operater}}</el-button>
+                    <el-button type="text" >{{props.row.content}}</el-button>
                 </template>
             </el-table-column>
             <el-table-column
-                label="操作帐号"
-                 width="120"
+                label="消息类型"
                 align="center"
-                prop="account">
-            </el-table-column>
-            <el-table-column
-                label="日志内容"
-                align="center"
-                prop="content">
-            </el-table-column>
-            <el-table-column
-                label="操作路径"
-                align="center"
-                prop="path">
-            </el-table-column>
-            <el-table-column
-                label="IP地址"
                 width="160"
-                align="center"
-                prop="ip">
+                prop="type">
             </el-table-column>
             <el-table-column
-                label="终端类型"
+                label="接收时间"
                 width="160"
-                align="center"
-                prop="brower">
-            </el-table-column>
-            <el-table-column
-                label="操作时间"
-                 width="160"
                 align="center"
                 prop="time">
+            </el-table-column>
+
+            <el-table-column
+                label="状态"
+                width="60"
+                align="center"
+                prop="status"
+                >
+            </el-table-column>
+
+            <el-table-column label="操作" width="120" align="center">
+                 <template slot-scope="props">
+                     <el-button type="text" size="small" title="重置密码">已读</el-button>
+                     <el-button type="text" size="small" title="删除用户">删除</el-button>
+                 </template>
             </el-table-column>
         </el-table>
 
@@ -90,37 +95,80 @@
             :total="400">
             </el-pagination>
         </div>
+        <!-- 用户添加编辑组件 -->
+        <user-dialog :open.sync="openDialog"  :type.sync="dialogType" />
     </div>
 </template>
 <script>
-
+import userDialog from '@/pages/main/system/users/Dialog.vue' // 添加组件
+import avator from '@/components/Avator.vue' // 头像组件
 export default {
-  name: 'usersList',
+  name: 'messageList',
+  components: {
+    userDialog,
+    avator
+  },
   data () {
     return {
+      openDialog: false,
+      dialogType: 'add',
+      checkedList: [],
       select: '',
       input5: '',
       currentPage4: 1,
       tableData5: [{
-        lid: 'aaa',
+        uid: 'aaa',
         num: 1,
-        account: 'sssss',
-        path: 'backend/comment/index',
-        brower: 'Mozilla/5.0',
-        ip: '183.62.227.50',
-        time: '2018-10-23 23:57:60',
-        operater: '做龙飞',
-        content: 1
+        status: '未读',
+        content: '测试',
+        time: '2018-04-15 10:00',
+        type: '站内信'
       }
-      ]
+      ],
+      multipleSelection: []
     }
   },
   methods: {
+    handleSelectionChange (val) {
+      console.log(val)
+      this.checkedList = val
+    },
     handleSizeChange (val) {
       console.log(`每页 ${val} 条`)
     },
     handleCurrentChange (val) {
       console.log(`当前页: ${val}`)
+    },
+    showEditorUser () {
+      this.dialogType = 'editor'
+      const userInfo = {
+        uid: 'aaa',
+        account: 'sssss',
+        password: 'sssssss',
+        avator: '',
+        org: 'org1',
+        role: [],
+        name: '做龙飞',
+        enable: true,
+        phone: '',
+        idcard: '',
+        isSuper: false
+      }
+      this.$store.commit('options/setSelectUser', userInfo)
+      if (this.openDialog) {
+        this.openDialog = false
+      }
+      this.openDialog = true
+    },
+    showAddUser () {
+      this.dialogType = 'add'
+      if (this.openDialog) {
+        this.openDialog = false
+      }
+      this.openDialog = true
+    },
+    showDetail (row) {
+      this.$refs.userList.toggleRowExpansion(row)
     }
   }
 }
